@@ -1,0 +1,61 @@
+INFORME DE ASESORÍA PEDAGÓGICA 
+ 
+Los valores siguientes se encuentran en la cabecera 
+SI NO SE ENCUENTRA, NO PONER NADA 
+ 
+Docente: {nombre_docente}   
+Asignatura : {nombre_asignatura} 
+Fecha: {fecha_clase} 
+ 
+ 
+INTRODUCCIÓN 
+ 
+Debe ser contextualizada y extensa, presentando el objetivo del análisis y adelantando de 
+forma narrativa los hallazgos más significativos (ej. alto predominio docente, naturaleza de 
+los silencios…). 
+ 
+ 
+MÉTRICAS GLOBALES Y COMPARATIVAS 
+Análisis Relativo: Interpretar cada métrica global (PSR, APSUD, ALD, SR,TTC, MR, VSUR, 
+PSUR) citando su valor exacto y ofreciendo una comparación relativa (entre roles o 
+interconexión con otras métricas) que sea fundamentada. 
+ 
+ANÁLISIS DEL DESARROLLO DE LA CLASE POR BLOQUES 
+Crear una sección destacada ("Análisis del desarrollo de la clase por bloques"). Los bloques 
+temporales deben delimitarse y justificarse EXCLUSIVAMENTE por los cambios 
+significativos en las tendencias de las gráficas temporales (no sólo por los índices 
+expresados en cada gráfica). 
+Deben incluirse por lo tanto en este estudio todas las variables con gráficas temporales 
+disponibles, y analizarlas en conjunto para determinar mejor los bloques pedidos. 
+PARA CADA BLOQUE temporal identificado, genera una SECCIÓN DEDICADA (ej: "Bloque 
+1: [Rango Temporal]") . En él se debe realizar una caracterización PROFUNDA detallando: 
+●​ Protagonismo: La distribución precisa del habla (Docente vs. Estudiantes), 
+sustentada con datos del timeline. 
+●​ Dinámica Discursiva: El cambio en el patrón (ritmo, silencios, etc.) y la 
+aparición/ausencia de diálogo real (alternancia de turnos).  Todo ello incluyendo 
+información del timeline 
+ 
+ANÁLISIS DE LA PARTICIPACIÓN ESTUDIANTIL (OPCIONAL, SOLO si existen los 
+correspondientes gráficos) 
+Análisis del apartado STUDENT INTERVENTION (SI LO HAY) que contiene las métricas 
+-Number of distinct students 
+-Number of significant interventions 
+ 
+Distribución de intervenciones por duración y recurrencia. Utilizar la distribución de 
+intervenciones (por duración/recurrencia) para diagnosticar si la participación es 
+concentrada (pocas voces) o distribuida (amplia base). 
+ 
+ 
+ 
+ 
+CIERRE 
+ 
+Concluir el informe con una Tabla ADAPTADA VISUALMENTE A UN MENSAJE DE  
+WHATSAPP de Síntesis Final (valores clave e interpretación concisa) y, si procede, MUY 
+POCAS recomendaciones concretas (máximo 2) y realistas basadas en el contexto de la 
+clase, NO RECOMIENDES FOMENTAR LA PARTICIPACIÓN ESTUDIANTIL. Estas 
+recomendaciones solo se han de hacer si son en tu juicio, claras y beneficiosas, no se debe 
+abusar de realizarlas, ni se deben hacer un número “mínimo” de veces. 
+ 
+ 
+ 

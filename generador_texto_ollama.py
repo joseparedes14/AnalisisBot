@@ -1,11 +1,12 @@
 import ollama
 import fitz  # PyMuPDF
 import os
+from simulador import generar_datos_temporales
 
-def generar_texto_estructurado(informacion, prompt_tarea, instrucciones_estructura, modelo="llama3.2"):
+def generar_texto_estructurado(informacion, prompt_tarea, instrucciones_estructura, datos_temporales_json=None, modelo="llama3.2"):
     """
     Genera un texto usando Ollama basándose en información previa, 
-    una tarea a realizar y unas instrucciones estrictas de formato.
+    una tarea a realizar, instrucciones de formato y datos temporales (JSON).
     """
     
     # 1. Mensaje de Sistema (System Prompt)
@@ -14,12 +15,16 @@ def generar_texto_estructurado(informacion, prompt_tarea, instrucciones_estructu
 Tu objetivo es redactar informes PROFUNDOS, DETALLADOS y BIEN RAZONADOS, aportando un alto nivel de análisis académico, pero anclándote exclusivamente en los hechos proporcionados.
 
 REGLAS DE GENERACIÓN:
-1. FIDELIDAD: Los datos, números, porcentajes y nombres provendrán ÚNICAMENTE de la INFORMACIÓN DE CONTEXTO. Si un dato no existe, indica "No especificado", no te lo inventes.
-2. PROFUNDIDAD DE ANÁLISIS (MUY IMPORTANTE): No te limites a copiar y pegar los datos de forma simple. Debes DESARROLLAR párrafos completos, extensos y bien argumentados explicando las implicaciones de lo observado. Si un dato es negativo o positivo, razona las causas, aporta una reflexión madura y ofrece sugerencias extensas.
-3. ESTILO: Escribe con un tono formal, rico en vocabulario y altamente argumentativo.
+1. FIDELIDAD: Los datos cuantitativos provendrán ÚNICAMENTE de la INFORMACIÓN DE CONTEXTO. No inventes métricas ni números.
+2. PROFUNDIDAD Y PENSAMIENTO CRÍTICO (MUY IMPORTANTE): Ve más allá de lo descriptivo. Para cada métrica o hallazgo clave, realiza una EVALUACIÓN CRÍTICA EXHAUSTIVA: explora el "por qué" detrás de los números, formula hipótesis lógicas de por qué ocurrieron, cruza la información de distintas variables (correlaciones), prevé riesgos y plantea recomendaciones estratégicas a nivel macro.
+3. ESTILO: Escribe con un tono sumamente prolijo, formal, complejo y altamente argumentativo, digno de una auditoría de alto nivel o tesis.
 4. ESTRUCTURA: Encaja esta narrativa extensa dentro de los encabezados solicitados. No añadas saludos ni comentarios extra fuera de la estructura.
 5. NO REPETICIÓN: Genera CADA SECCIÓN EXACTAMENTE UNA VEZ. Cuando llegues al final de la estructura solicitada, DEBES DETENERTE de inmediato. JAMÁS repitas bloques, cierres o recomendaciones.
-6. DEBES ANALIZAR TODAS ESTAS VARIABLES SIN EXCEPCION: (PSR, APSUD, ALD, SR, TTC, MR, VSUR, PSUR). DANDO UNA APRECIACIÓN SUBJETIVA PERO FUNDAMENTADA EN LA PARTE DE MÉTRICA GLOBAL.
+6. EJECUCIÓN ESTRICTA DE LAS 8 VARIABLES GLOBALES: En "Métricas Globales y Comparativas", TIENES LA OBLIGACIÓN IRRENUNCIABLE de listar y analizar las OCHO (8) VARIABLES: PSR, APSUD, ALD, SR, TTC, MR, VSUR y PSUR. Si omites ALD, SR, TTC, MR o VSUR o generas menos de 8 viñetas habrás fallado gravemente. Para cada viñeta "* **[NOMBRE DE VARIABLE]**: [Análisis]" redacta una evaluación experta, profunda e hipotética, cruzando datos para diagnosticar el impacto y el estilo. PROHIBIDA la superficialidad o limitarse a repetir qué significa el número matemático.
+7. AGRUPACIÓN EN BLOQUES IRREGULARES CON DATOS REALES: Rompe la sesión en bloques temporales asimétricos (ej. 0-14, 14-37, etc.) garantizando siempre un mínimo de 10 min por bloque. Jamás cortes matemáticamente de 10 en 10. Dentro de cada bloque analiza SÓLO "Protagonismo" y "Dinámica Discursiva". FUNDAMENTAL: Observa la tabla de datos temporal REAL provista, deduce a partir de sus variaciones por qué elegiste ese bloque y explica con profundidad pedagógica qué estaba haciendo el docente apoyándote en ESOS números reales.
+8. PROHIBICIÓN DE TABLAS DE BLOQUES AL CIERRE: Es crítico que al final NO introduzcas tablas de resumen por bloque ni enumeraciones que no estén dictadas específicamente por las instrucciones formales.
+9. PARTICIPACIÓN ESTUDIANTIL CON DATOS REALES: En "Análisis de la participación estudiantil", DEBES extraer y utilizar obligatoriamente los datos de las intervenciones (ej. "Number of distinct students", "Number of significant interventions", etc.) que se provean en el contexto de entrada. Asegúrate de diagnosticar en base a esos números si la participación es concentrada (pocas voces) o distribuida.
+10. NO REALICES LA TABLA DE SÍNTESIS FINAL
 
 INSTRUCCIONES DE ESTRUCTURA A SEGUIR:
 {instrucciones_estructura}
@@ -27,10 +32,38 @@ INSTRUCCIONES DE ESTRUCTURA A SEGUIR:
 
     # 2. Mensaje del Usuario (User Prompt)
     # Aquí le pasamos los DATOS (información) y lo que queremos que HAGA con ellos (tarea).
+    
+    bloque_temporal_str = ""
+    if datos_temporales_json:
+        try:
+            import json
+            # Parseamos el JSON si es un string
+            datos = json.loads(datos_temporales_json) if isinstance(datos_temporales_json, str) else datos_temporales_json
+            
+            # Verificamos si es una lista de diccionarios (el formato ideal para una tabla)
+            if isinstance(datos, list) and len(datos) > 0 and isinstance(datos[0], dict):
+                # Extraemos las claves directamente para hacerlas encabezados sin filtros
+                claves = list(datos[0].keys())
+                
+                # Construimos la tabla Markdown de la manera más sencilla posible
+                encabezado = "| " + " | ".join(claves) + " |"
+                separador = "| " + " | ".join(["---"] * len(claves)) + " |"
+                
+                filas = ["| " + " | ".join(str(item.get(k, "")) for k in claves) + " |" for item in datos]
+                tabla_md = "\n".join([encabezado, separador] + filas)
+                
+                bloque_temporal_str = f"\nDATOS TEMPORALES DEL DESARROLLO (EN FORMATO TABLA):\n\n{tabla_md}\n\n"
+            else:
+                # Si no es lista de dicts, lo dejamos como JSON
+                bloque_temporal_str = f"\nDATOS TEMPORALES DEL DESARROLLO (JSON):\n\"\"\"\n{datos_temporales_json}\n\"\"\"\n"
+        except Exception:
+            # En caso de error al parsear, usamos el valor original
+            bloque_temporal_str = f"\nDATOS TEMPORALES DEL DESARROLLO (JSON):\n\"\"\"\n{datos_temporales_json}\n\"\"\"\n"
+
     mensaje_usuario = f"""INFORMACIÓN DE CONTEXTO:
 \"\"\"
 {informacion}
-\"\"\"
+\"\"\"{bloque_temporal_str}
 
 TAREA A REALIZAR CON LA INFORMACIÓN (PROMPT):
 {prompt_tarea}
@@ -45,10 +78,10 @@ TAREA A REALIZAR CON LA INFORMACIÓN (PROMPT):
                 {'role': 'user', 'content': mensaje_usuario}
             ],
             options={
-                "temperature": 0.4, # Subimos la T a 0.4 para que pueda redactar y razonar con mejor vocabulario
-                "top_p": 0.6, # Permite construir respuestas más elaboradas
-                "num_ctx": 8192, # Importante para la cantidad de texto a procesar
-                "repeat_penalty": 1.15 
+                "temperature": 0.2, # Disminuido drásticamente para mayor obediencia a las reglas y evitar alucinaciones
+                "top_p": 0.9, 
+                "num_ctx": 8192, # Suficiente memoria para procesar la tabla y contextos sin truncarlos
+                "repeat_penalty": 1.05 # Bajado para evitar que la IA se niegue a escribir las siglas de las métricas (PSR etc) pensando que está repitiéndose
             }
         )
         return respuesta['message']['content']
@@ -125,10 +158,15 @@ if __name__ == "__main__":
     print("-----------------------------------\n")
 
         
+    json_cronograma = generar_datos_temporales()
+    print("\n--- DATOS TEMPORALES SIMULADOS ---")
+    print(json_cronograma[:300] + "...\n(Acortado para visualización)\n")
+
     texto_final = generar_texto_estructurado(
         informacion=info_texto,
         prompt_tarea=mi_prompt,
         instrucciones_estructura=mis_instrucciones,
+        datos_temporales_json=json_cronograma,
         modelo="llama3.1" 
         )
         
