@@ -3,7 +3,7 @@ import fitz  # PyMuPDF
 import os
 from simulador import generar_datos_temporales
 
-def generar_texto_estructurado(informacion, prompt_tarea, instrucciones_estructura, datos_temporales_json=None, modelo="llama3.2"):
+def generar_texto_estructurado(informacion, prompt_tarea, instrucciones_estructura, datos_temporales_json=None, modelo='gpt-oss:120b-cloud'):
     """
     Genera un texto usando Ollama basándose en información previa, 
     una tarea a realizar, instrucciones de formato y datos temporales (JSON).
@@ -20,7 +20,9 @@ REGLAS DE GENERACIÓN:
 3. ESTILO: Escribe con un tono sumamente prolijo, formal, complejo y altamente argumentativo, digno de una auditoría de alto nivel o tesis.
 4. ESTRUCTURA: Encaja esta narrativa extensa dentro de los encabezados solicitados. No añadas saludos ni comentarios extra fuera de la estructura.
 5. NO REPETICIÓN: Genera CADA SECCIÓN EXACTAMENTE UNA VEZ. Cuando llegues al final de la estructura solicitada, DEBES DETENERTE de inmediato. JAMÁS repitas bloques, cierres o recomendaciones.
-6. EJECUCIÓN ESTRICTA DE LAS 8 VARIABLES GLOBALES: En "Métricas Globales y Comparativas", TIENES LA OBLIGACIÓN IRRENUNCIABLE de listar y analizar las OCHO (8) VARIABLES: PSR, APSUD, ALD, SR, TTC, MR, VSUR y PSUR. Si omites ALD, SR, TTC, MR o VSUR o generas menos de 8 viñetas habrás fallado gravemente. Para cada viñeta "* **[NOMBRE DE VARIABLE]**: [Análisis]" redacta una evaluación experta, profunda e hipotética, cruzando datos para diagnosticar el impacto y el estilo. PROHIBIDA la superficialidad o limitarse a repetir qué significa el número matemático.
+6. ANÁLISIS DENSO Y VINCULADO DE LAS 8 VARIABLES GLOBALES: En "Métricas Globales y Comparativas", ESTÁ PROHIBIDO listar simplemente los valores y hacer un resumen genérico o separado al final. DEBES dedicar un texto robusto y extenso por CADA UNA de las 8 variables obligatorias (PSR, APSUD, ALD, SR, TTC, MR, VSUR, PSUR). 
+Para cada métrica, utiliza obligatoriamente este formato integrado en párrafos:
+"**[NOMBRE DE LA MÉTRICA] ([Valor exacto])**: [Redacta de manera fluida un ANÁLISIS PROFUNDO E INTEGRADO. Debes incluir OBLIGATORIAMENTE: 1. Interpretación pedagógica (¿qué clima o dinámica de poder refleja este número de forma subyacente?), 2. Interconexión cruzada (relaciona este dato explícitamente con al menos OTRA métrica distinta, por ejemplo, vincula el índice TTC con el PSR o las intervenciones breves VSUR), y 3. Hipótesis crítica (deduce cómo esta combinación afecta la asimilación del conocimiento y el rol de los alumnos). \nBAJO NINGÚN CONCEPTO te limites a reescribir la definición matemática de la métrica o a decir 'el docente habla el 80%']. La superficialidad y la falta de interconexión son fallos críticos."
 7. AGRUPACIÓN EN BLOQUES IRREGULARES CON DATOS REALES: Rompe la sesión en bloques temporales asimétricos (ej. 0-14, 14-37, etc.) garantizando siempre un mínimo de 10 min por bloque. Jamás cortes matemáticamente de 10 en 10. Dentro de cada bloque analiza SÓLO "Protagonismo" y "Dinámica Discursiva". FUNDAMENTAL: Observa la tabla de datos temporal REAL provista, deduce a partir de sus variaciones por qué elegiste ese bloque y explica con profundidad pedagógica qué estaba haciendo el docente apoyándote en ESOS números reales.
 8. PROHIBICIÓN DE TABLAS DE BLOQUES AL CIERRE: Es crítico que al final NO introduzcas tablas de resumen por bloque ni enumeraciones que no estén dictadas específicamente por las instrucciones formales.
 9. PARTICIPACIÓN ESTUDIANTIL CON DATOS REALES: En "Análisis de la participación estudiantil", DEBES extraer y utilizar obligatoriamente los datos de las intervenciones (ej. "Number of distinct students", "Number of significant interventions", etc.) que se provean en el contexto de entrada. Asegúrate de diagnosticar en base a esos números si la participación es concentrada (pocas voces) o distribuida.
@@ -167,7 +169,7 @@ if __name__ == "__main__":
         prompt_tarea=mi_prompt,
         instrucciones_estructura=mis_instrucciones,
         datos_temporales_json=json_cronograma,
-        modelo="llama3.1" 
+        modelo="gpt-oss:120b-cloud" 
         )
         
     print("=== RESULTADO GENERADO ===\n")
