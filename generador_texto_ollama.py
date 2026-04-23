@@ -1,6 +1,7 @@
 import ollama
 import fitz  # PyMuPDF
 import os
+import json
 from simulador import generar_datos_temporales
 
 def generar_texto_estructurado(informacion, prompt_tarea, instrucciones_estructura, datos_temporales_json=None, modelo='gpt-oss:120b-cloud'):
@@ -147,7 +148,8 @@ if __name__ == "__main__":
     info_texto = extraer_texto_pdf("PruebaInforme.pdf")
     mi_prompt = extraer_texto_pdf('PROMPTMEJORADO.pdf')
     mis_instrucciones = extraer_texto_pdf('FORMATO_SALIDA.pdf')
-
+    prompt_json_extractor = extraer_texto_pdf('PROMPT_JSON.pdf') 
+    
     # === DIAGNÓSTICO DE TEXTO EXTRAÍDO ===
     print("\n--- COMPROBANDO LECTURA DE PDFs ---")
     print(f"Caracteres extraídos de PruebaInforme: {len(info_texto)}")
@@ -163,13 +165,14 @@ if __name__ == "__main__":
     json_cronograma = generar_datos_temporales()
     print("\n--- DATOS TEMPORALES SIMULADOS ---")
     print(json_cronograma[:300] + "...\n(Acortado para visualización)\n")
-
+    print("\n[1/2] Generando Informe Pedagógico Narrativo...")
     texto_final = generar_texto_estructurado(
         informacion=info_texto,
         prompt_tarea=mi_prompt,
         instrucciones_estructura=mis_instrucciones,
         datos_temporales_json=json_cronograma,
-        modelo="gpt-oss:120b-cloud" 
+        modelo ='llama3'
+        #modelo="gpt-oss:120b-cloud" 
         )
         
     print("=== RESULTADO GENERADO ===\n")
@@ -178,3 +181,24 @@ if __name__ == "__main__":
    
     if not texto_final.startswith("Error"):
         guardar_resultado_en_pdf(texto_final, nombre_archivo="Respuesta_Agente_Ollama.pdf")
+        # EXTRACCIÓN PARALELA A JSON SCHEMA
+        print("[2/2] Extrayendo datos técnicos a JSON...")
+        try:
+            respuesta_json = ollama.chat(
+                model ='llama3',
+                #model ='gpt-oss:120b-cloud',
+                format = 'json',
+                messages=[
+                    {'role':'system','content':prompt_json_extractor},
+                    {'role':'user','content': f"Transforma el siguiente informe en un objeto JSON: {texto_final}"}
+                    
+                ] 
+            )
+            with open("data_auditoria.json","w",encoding='utf-8') as f:
+                f.write(respuesta_json['message']['content'])
+            print("[+] Archivo JSON 'data_auditoria.json' generado con éxito.")
+        except Exception as e:
+            print(f"[-] Error en la extracción JSON: {e}")
+    print("\n-- FINALIZADO --")
+            
+        
