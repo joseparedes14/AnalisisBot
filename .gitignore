@@ -1,0 +1,31 @@
+# ==========================================
+# .gitignore 
+# ==========================================
+
+# --- Archivos temporales de Python (Compilados) ---
+**/__pycache__/
+*.py[cod]
+*$py.class
+
+# --- Archivos de Registro (Logs) ---
+*.log
+
+# --- Entornos Virtuales ---
+.venv/
+venv/
+ENV/
+env/
+
+# --- Configuración y Secretos (Seguridad) ---
+.env
+.env.secret
+secrets.toml
+
+# --- Archivos del Sistema Operativo ---
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- Carpetas de editores de código ---
+.vscode/
+.idea/
