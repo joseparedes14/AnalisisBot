@@ -1,18 +1,5 @@
-# Dependencias principales para el generador de informes pedagógicos
-
-# Librería para interactuar con modelos locales de Ollama
-ollama>=0.3.0
-
-# Librería para extraer texto de PDFs
-pymupdf>=1.24.0
-
-# Librería para generar PDFs (reportlab tiene mejor soporte Unicode)
-reportlab>=4.0.0
-
-# Librería para validación de datos (opcional para desarrollo)
-pydantic>=2.0.0
-
-# Para desarrollo y pruebas
-pytest>=7.0.0
-pytest-mock>=3.0.0
-python-dotenv>=1.0.0
+fitz==0.0.1.dev2
+fpdf2==2.8.7
+ollama==0.6.2
+pydantic==2.13.4
+reportlab==4.5.1
