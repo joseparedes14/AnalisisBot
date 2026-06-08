@@ -19,5 +19,8 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = [
-    "pipreqs>=0.4.13"   
+    "pipreqs>=0.4.13"
+]
+ui = [
+    "streamlit>=1.28.0"
 ]
