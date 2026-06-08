@@ -1,0 +1,76 @@
+{
+  "analisis_sesion": {
+    "fecha": "25 de enero de 2025",
+    "resumen_introduccion": "Se observa un predominio del discurso docente (≈ 87 % del tiempo hablado) y una participación estudiantil concentrada en el tramo final, con escasa presencia de silencios prolongados y pocas intervenciones breves.",
+    "metricas_globales": {
+      "psr": {
+        "valor": 0.87,
+        "interpretacion": "El docente monopoliza el habla, limitando oportunidades de co‑construcción del conocimiento."
+      },
+      "apsud": {
+        "valor_docente": 15.65,
+        "valor_estudiante": 1.88,
+        "interpretacion": "Turnos docentes extensos frente a micro‑intervenciones estudiantiles, generando una brecha cognitiva."
+      },
+      "ald": {
+        "mediana": 1.10,
+        "pico_maximo": 11.22
+      },
+      "ttc": {
+        "total": 184,
+        "frecuencia_minuto": 3.17
+      },
+      "mr": {
+        "valor": 0.03
+      },
+      "psur": {
+        "valor": 0.65
+      }
+    },
+    "desarrollo_bloques": [
+      {
+        "id": "Bloque 1",
+        "rango": "0-20",
+        "protagonismo": "El docente mantiene una participación dominante (≈ 85‑90 % del tiempo hablado) y produce la mayoría de los enunciados.",
+        "dinamica": "Silencios breves (≈ 1,10 s) y cambios de turno frecuentes, con exposición continua sin diálogos extensos.",
+        "metricas_mencionadas": {
+          "psr_picos": [1.67, 4.79],
+          "apsud_max": 95.0
+        }
+      },
+      {
+        "id": "Bloque 2",
+        "rango": "21-40",
+        "protagonismo": "El docente sigue predominando, aunque la proporción de enunciados estudiantiles aumenta ligeramente.",
+        "dinamica": "Silencios continúan breves; la alta frecuencia de turnos permite breves intervenciones estudiantiles que son rápidamente retomadas por el docente.",
+        "metricas_mencionadas": {
+          "psr_picos": [1.28, 4.79],
+          "apsud_max": 95.0
+        }
+      },
+      {
+        "id": "Bloque 3",
+        "rango": "50-60",
+        "protagonismo": "Participación más equitativa; los enunciados estudiantiles se acercan a los docentes.",
+        "dinamica": "Se incrementan los cambios de turno al máximo, favoreciendo preguntas y dudas al final de la sesión.",
+        "metricas_mencionadas": {
+          "psr_picos": [1.38, 1.70],
+          "apsud_max": 90.0
+        }
+      }
+    ],
+    "participacion_estudiantil": {
+      "estudiantes_distintos": 5,
+      "intervenciones_totales": 18,
+      "diagnostico": "concentrada",
+      "detalle": "Dos estudiantes (Student_00 y Student_03) generan la mayor parte del tiempo de exposición, mientras el resto aporta intervenciones breves, lo que indica una participación concentrada."
+    },
+    "cierre": {
+      "whatsapp_summary": null,
+      "recomendaciones": [
+        "Programar micro‑pausas reflexivas de al menos 3 s cada 5‑7 min, acompañadas de preguntas abiertas dirigidas a todo el alumnado, para ampliar la distribución de turnos y fomentar respuestas más extensas.",
+        "Implementar una ronda de “punto de vista” al cierre de cada sesión, asignando a cada estudiante un breve espacio (≈ 30 s) para comentar una idea clave, garantizando la expresión de las cinco voces y reduciendo la concentración de la participación."
+      ]
+    }
+  }
+}

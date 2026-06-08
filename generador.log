@@ -1,0 +1,286 @@
+2026-05-04 14:59:35,616 - main - INFO - main:23 - Iniciando generación de informe pedagógico
+2026-05-04 14:59:35,617 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:361 - Configuración validada correctamente
+2026-05-04 14:59:35,618 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:366 - Iniciando generación de informe completo
+2026-05-04 14:59:35,618 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:68 - Extrayendo texto de PDF: C:\Users\josem\Desktop\PruebasOllama\PruebaInforme.pdf
+2026-05-04 14:59:35,655 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:68 - Extrayendo texto de PDF: C:\Users\josem\Desktop\PruebasOllama\PROMPTMEJORADO.pdf
+2026-05-04 14:59:35,671 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:68 - Extrayendo texto de PDF: C:\Users\josem\Desktop\PruebasOllama\FORMATO_SALIDA.pdf
+2026-05-04 14:59:35,683 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:68 - Extrayendo texto de PDF: C:\Users\josem\Desktop\PruebasOllama\PROMPT_JSON.pdf
+2026-05-04 14:59:35,699 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:376 - --- COMPROBANDO LECTURA DE PDFs ---
+2026-05-04 14:59:35,700 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:377 - Caracteres extraídos de PruebaInforme.pdf: 2531
+2026-05-04 14:59:35,701 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:378 - Caracteres extraídos de PROMPTMEJORADO.pdf: 8997
+2026-05-04 14:59:35,702 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:379 - Caracteres extraídos de FORMATO_SALIDA.pdf: 2660
+2026-05-04 14:59:35,703 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:388 - --- DATOS TEMPORALES SIMULADOS ---
+2026-05-04 14:59:35,704 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:392 - [1/2] Generando Informe Pedagógico Narrativo...
+2026-05-04 14:59:35,706 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:209 - Generando texto con modelo gpt-oss:120b-cloud
+2026-05-04 15:00:42,283 - httpx - INFO - _client:1025 - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-04 15:00:42,286 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:402 - === RESULTADO GENERADO ===
+2026-05-04 15:00:42,287 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:252 - Generando PDF: C:\Users\josem\Desktop\PruebasOllama\Respuesta_Agente_Ollama.pdf
+2026-05-04 15:00:42,293 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:266 - PDF generado exitosamente: C:\Users\josem\Desktop\PruebasOllama\Respuesta_Agente_Ollama.pdf
+2026-05-04 15:00:42,293 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:413 - [2/2] Extrayendo datos técnicos a JSON...
+2026-05-04 15:00:42,293 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:298 - Generando JSON desde informe
+2026-05-04 15:01:12,331 - httpx - INFO - _client:1025 - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-04 15:01:12,333 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:332 - Guardando JSON: C:\Users\josem\Desktop\PruebasOllama\data_auditoria.json
+2026-05-04 15:01:12,334 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:337 - JSON guardado exitosamente: C:\Users\josem\Desktop\PruebasOllama\data_auditoria.json
+2026-05-04 15:01:12,334 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:422 - -- GENERACIÓN FINALIZADA --
+2026-05-04 15:01:12,336 - main - INFO - main:29 - Generación de informe completada con éxito
+2026-05-04 15:08:30,405 - main - INFO - main:23 - Iniciando generación de informe pedagógico
+2026-05-04 15:08:30,405 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:361 - Configuración validada correctamente
+2026-05-04 15:08:30,405 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:366 - Iniciando generación de informe completo
+2026-05-04 15:08:30,406 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:68 - Extrayendo texto de PDF: C:\Users\josem\Desktop\PruebasOllama\PruebaInforme.pdf
+2026-05-04 15:08:30,412 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:68 - Extrayendo texto de PDF: C:\Users\josem\Desktop\PruebasOllama\PROMPTMEJORADO.pdf
+2026-05-04 15:08:30,420 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:68 - Extrayendo texto de PDF: C:\Users\josem\Desktop\PruebasOllama\FORMATO_SALIDA.pdf
+2026-05-04 15:08:30,425 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:68 - Extrayendo texto de PDF: C:\Users\josem\Desktop\PruebasOllama\PROMPT_JSON.pdf
+2026-05-04 15:08:30,428 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:376 - --- COMPROBANDO LECTURA DE PDFs ---
+2026-05-04 15:08:30,428 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:377 - Caracteres extraídos de PruebaInforme.pdf: 2531
+2026-05-04 15:08:30,429 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:378 - Caracteres extraídos de PROMPTMEJORADO.pdf: 8673
+2026-05-04 15:08:30,429 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:379 - Caracteres extraídos de FORMATO_SALIDA.pdf: 2660
+2026-05-04 15:08:30,429 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:388 - --- DATOS TEMPORALES SIMULADOS ---
+2026-05-04 15:08:30,429 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:392 - [1/2] Generando Informe Pedagógico Narrativo...
+2026-05-04 15:08:30,430 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:209 - Generando texto con modelo gpt-oss:120b-cloud
+2026-05-04 15:09:06,759 - httpx - INFO - _client:1025 - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-04 15:09:06,760 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:402 - === RESULTADO GENERADO ===
+2026-05-04 15:09:06,760 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:252 - Generando PDF: C:\Users\josem\Desktop\PruebasOllama\Respuesta_Agente_Ollama.pdf
+2026-05-04 15:09:06,763 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:266 - PDF generado exitosamente: C:\Users\josem\Desktop\PruebasOllama\Respuesta_Agente_Ollama.pdf
+2026-05-04 15:09:06,764 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:413 - [2/2] Extrayendo datos técnicos a JSON...
+2026-05-04 15:09:06,764 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:298 - Generando JSON desde informe
+2026-05-04 15:09:41,250 - httpx - INFO - _client:1025 - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-04 15:09:41,253 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:332 - Guardando JSON: C:\Users\josem\Desktop\PruebasOllama\data_auditoria.json
+2026-05-04 15:09:41,255 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:337 - JSON guardado exitosamente: C:\Users\josem\Desktop\PruebasOllama\data_auditoria.json
+2026-05-04 15:09:41,255 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:422 - -- GENERACIÓN FINALIZADA --
+2026-05-04 15:09:41,256 - main - INFO - main:29 - Generación de informe completada con éxito
+2026-05-04 15:13:28,866 - main - INFO - main:23 - Iniciando generación de informe pedagógico
+2026-05-04 15:13:28,867 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:361 - Configuración validada correctamente
+2026-05-04 15:13:28,867 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:366 - Iniciando generación de informe completo
+2026-05-04 15:13:28,867 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:68 - Extrayendo texto de PDF: C:\Users\josem\Desktop\PruebasOllama\PruebaInforme.pdf
+2026-05-04 15:13:28,873 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:68 - Extrayendo texto de PDF: C:\Users\josem\Desktop\PruebasOllama\PROMPTMEJORADO.pdf
+2026-05-04 15:13:28,882 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:68 - Extrayendo texto de PDF: C:\Users\josem\Desktop\PruebasOllama\FORMATO_SALIDA.pdf
+2026-05-04 15:13:28,886 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:68 - Extrayendo texto de PDF: C:\Users\josem\Desktop\PruebasOllama\PROMPT_JSON.pdf
+2026-05-04 15:13:28,889 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:376 - --- COMPROBANDO LECTURA DE PDFs ---
+2026-05-04 15:13:28,889 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:377 - Caracteres extraídos de PruebaInforme.pdf: 2531
+2026-05-04 15:13:28,890 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:378 - Caracteres extraídos de PROMPTMEJORADO.pdf: 8673
+2026-05-04 15:13:28,890 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:379 - Caracteres extraídos de FORMATO_SALIDA.pdf: 2520
+2026-05-04 15:13:28,890 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:388 - --- DATOS TEMPORALES SIMULADOS ---
+2026-05-04 15:13:28,890 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:392 - [1/2] Generando Informe Pedagógico Narrativo...
+2026-05-04 15:13:28,891 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:209 - Generando texto con modelo gpt-oss:120b-cloud
+2026-05-04 15:14:04,987 - httpx - INFO - _client:1025 - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-04 15:14:04,988 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:402 - === RESULTADO GENERADO ===
+2026-05-04 15:14:04,989 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:252 - Generando PDF: C:\Users\josem\Desktop\PruebasOllama\Respuesta_Agente_Ollama.pdf
+2026-05-04 15:14:04,992 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:266 - PDF generado exitosamente: C:\Users\josem\Desktop\PruebasOllama\Respuesta_Agente_Ollama.pdf
+2026-05-04 15:14:04,992 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:413 - [2/2] Extrayendo datos técnicos a JSON...
+2026-05-04 15:14:04,992 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:298 - Generando JSON desde informe
+2026-05-04 15:14:22,745 - httpx - INFO - _client:1025 - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-04 15:14:22,747 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:332 - Guardando JSON: C:\Users\josem\Desktop\PruebasOllama\data_auditoria.json
+2026-05-04 15:14:22,748 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:337 - JSON guardado exitosamente: C:\Users\josem\Desktop\PruebasOllama\data_auditoria.json
+2026-05-04 15:14:22,748 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:422 - -- GENERACIÓN FINALIZADA --
+2026-05-04 15:14:22,748 - main - INFO - main:29 - Generación de informe completada con éxito
+2026-05-04 15:26:13,875 - main - INFO - main:23 - Iniciando generación de informe pedagógico
+2026-05-04 15:26:13,876 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:483 - Configuración validada correctamente
+2026-05-04 15:26:13,876 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:488 - Iniciando generación de informe completo
+2026-05-04 15:26:13,892 - httpx - INFO - _client:1025 - HTTP Request: GET http://127.0.0.1:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-04 15:26:13,893 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:60 - Modelo 'gpt-oss:120b-cloud' encontrado y disponible
+2026-05-04 15:26:13,893 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:95 - Extrayendo texto de PDF: C:\Users\josem\Desktop\PruebasOllama\PruebaInforme.pdf
+2026-05-04 15:26:13,900 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:95 - Extrayendo texto de PDF: C:\Users\josem\Desktop\PruebasOllama\PROMPTMEJORADO.pdf
+2026-05-04 15:26:13,909 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:95 - Extrayendo texto de PDF: C:\Users\josem\Desktop\PruebasOllama\FORMATO_SALIDA.pdf
+2026-05-04 15:26:13,913 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:95 - Extrayendo texto de PDF: C:\Users\josem\Desktop\PruebasOllama\PROMPT_JSON.pdf
+2026-05-04 15:26:13,916 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:503 - --- COMPROBANDO LECTURA DE PDFs ---
+2026-05-04 15:26:13,916 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:504 - Caracteres extraídos de PruebaInforme.pdf: 2531
+2026-05-04 15:26:13,916 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:505 - Caracteres extraídos de PROMPTMEJORADO.pdf: 8673
+2026-05-04 15:26:13,917 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:506 - Caracteres extraídos de FORMATO_SALIDA.pdf: 2520
+2026-05-04 15:26:13,917 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:515 - --- DATOS TEMPORALES SIMULADOS ---
+2026-05-04 15:26:13,917 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:519 - [1/2] Generando Informe Pedagógico Narrativo...
+2026-05-04 15:26:13,918 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:236 - Generando texto con modelo gpt-oss:120b-cloud
+2026-05-04 15:27:09,570 - httpx - INFO - _client:1025 - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-04 15:27:09,571 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:529 - === RESULTADO GENERADO ===
+2026-05-04 15:27:09,646 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:294 - Generando PDF: C:\Users\josem\Desktop\PruebasOllama\Respuesta_Agente_Ollama.pdf
+2026-05-04 15:27:09,662 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:348 - PDF generado exitosamente: C:\Users\josem\Desktop\PruebasOllama\Respuesta_Agente_Ollama.pdf
+2026-05-04 15:27:09,662 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:540 - [2/2] Extrayendo datos técnicos a JSON...
+2026-05-04 15:27:09,663 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:420 - Generando JSON desde informe
+2026-05-04 15:27:39,132 - httpx - INFO - _client:1025 - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-04 15:27:39,135 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:454 - Guardando JSON: C:\Users\josem\Desktop\PruebasOllama\data_auditoria.json
+2026-05-04 15:27:39,137 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:459 - JSON guardado exitosamente: C:\Users\josem\Desktop\PruebasOllama\data_auditoria.json
+2026-05-04 15:27:39,137 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:549 - -- GENERACIÓN FINALIZADA --
+2026-05-04 15:27:39,138 - main - INFO - main:29 - Generación de informe completada con éxito
+2026-05-04 15:39:07,307 - main - INFO - main:23 - Iniciando generación de informe pedagógico
+2026-05-04 15:39:07,307 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:481 - Configuracion validada correctamente
+2026-05-04 15:39:07,307 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:486 - Iniciando generacion de informe completo
+2026-05-04 15:39:07,327 - httpx - INFO - _client:1025 - HTTP Request: GET http://127.0.0.1:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-04 15:39:07,328 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:60 - Modelo 'gpt-oss:120b-cloud' encontrado y disponible
+2026-05-04 15:39:07,328 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:95 - Extrayendo texto de PDF: C:\Users\josem\Desktop\PruebasOllama\PruebaInforme.pdf
+2026-05-04 15:39:07,335 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:95 - Extrayendo texto de PDF: C:\Users\josem\Desktop\PruebasOllama\PROMPTMEJORADO.pdf
+2026-05-04 15:39:07,345 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:95 - Extrayendo texto de PDF: C:\Users\josem\Desktop\PruebasOllama\FORMATO_SALIDA.pdf
+2026-05-04 15:39:07,349 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:95 - Extrayendo texto de PDF: C:\Users\josem\Desktop\PruebasOllama\PROMPT_JSON.pdf
+2026-05-04 15:39:07,352 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:501 - --- COMPROBANDO LECTURA DE PDFs ---
+2026-05-04 15:39:07,352 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:502 - Caracteres extrados de PruebaInforme.pdf: 2531
+2026-05-04 15:39:07,352 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:503 - Caracteres extrados de PROMPTMEJORADO.pdf: 8673
+2026-05-04 15:39:07,353 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:504 - Caracteres extrados de FORMATO_SALIDA.pdf: 2520
+2026-05-04 15:39:07,353 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:513 - --- DATOS TEMPORALES SIMULADOS ---
+2026-05-04 15:39:07,353 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:517 - [1/2] Generando Informe Pedagogico Narrativo...
+2026-05-04 15:39:07,354 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:234 - Generando texto con modelo gpt-oss:120b-cloud
+2026-05-04 15:39:50,445 - httpx - INFO - _client:1025 - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-04 15:39:50,446 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:527 - === RESULTADO GENERADO ===
+2026-05-04 15:39:50,525 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:292 - Generando PDF: C:\Users\josem\Desktop\PruebasOllama\Respuesta_Agente_Ollama.pdf
+2026-05-04 15:39:50,534 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:346 - PDF generado exitosamente: C:\Users\josem\Desktop\PruebasOllama\Respuesta_Agente_Ollama.pdf
+2026-05-04 15:39:50,534 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:538 - [2/2] Extrayendo datos tecnicos a JSON...
+2026-05-04 15:39:50,534 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:418 - Generando JSON desde informe
+2026-05-04 15:40:09,887 - httpx - INFO - _client:1025 - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-04 15:40:09,888 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:452 - Guardando JSON: C:\Users\josem\Desktop\PruebasOllama\data_auditoria.json
+2026-05-04 15:40:09,888 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:457 - JSON guardado exitosamente: C:\Users\josem\Desktop\PruebasOllama\data_auditoria.json
+2026-05-04 15:40:09,888 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:547 - -- GENERACION FINALIZADA --
+2026-05-04 15:40:09,888 - main - INFO - main:29 - Generación de informe completada con éxito
+2026-05-04 15:41:34,461 - main - INFO - main:23 - Iniciando generación de informe pedagógico
+2026-05-04 15:41:34,461 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:481 - Configuracion validada correctamente
+2026-05-04 15:41:34,461 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:486 - Iniciando generacion de informe completo
+2026-05-04 15:41:34,477 - httpx - INFO - _client:1025 - HTTP Request: GET http://127.0.0.1:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-04 15:41:34,478 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:60 - Modelo 'gpt-oss:120b-cloud' encontrado y disponible
+2026-05-04 15:41:34,478 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:95 - Extrayendo texto de PDF: C:\Users\josem\Desktop\PruebasOllama\PruebaInforme.pdf
+2026-05-04 15:41:34,484 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:95 - Extrayendo texto de PDF: C:\Users\josem\Desktop\PruebasOllama\PROMPTMEJORADO.pdf
+2026-05-04 15:41:34,493 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:95 - Extrayendo texto de PDF: C:\Users\josem\Desktop\PruebasOllama\FORMATO_SALIDA.pdf
+2026-05-04 15:41:34,500 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:95 - Extrayendo texto de PDF: C:\Users\josem\Desktop\PruebasOllama\PROMPT_JSON.pdf
+2026-05-04 15:41:34,505 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:501 - --- COMPROBANDO LECTURA DE PDFs ---
+2026-05-04 15:41:34,507 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:502 - Caracteres extrados de PruebaInforme.pdf: 2531
+2026-05-04 15:41:34,507 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:503 - Caracteres extrados de PROMPTMEJORADO.pdf: 8673
+2026-05-04 15:41:34,507 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:504 - Caracteres extrados de FORMATO_SALIDA.pdf: 2520
+2026-05-04 15:41:34,508 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:513 - --- DATOS TEMPORALES SIMULADOS ---
+2026-05-04 15:41:34,508 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:517 - [1/2] Generando Informe Pedagogico Narrativo...
+2026-05-04 15:41:34,509 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:236 - Generando texto con modelo gpt-oss:120b-cloud
+2026-05-04 15:42:26,668 - httpx - INFO - _client:1025 - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-04 15:42:26,670 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:527 - === RESULTADO GENERADO ===
+2026-05-04 15:42:26,763 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:294 - Generando PDF: C:\Users\josem\Desktop\PruebasOllama\Respuesta_Agente_Ollama.pdf
+2026-05-04 15:42:26,777 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:348 - PDF generado exitosamente: C:\Users\josem\Desktop\PruebasOllama\Respuesta_Agente_Ollama.pdf
+2026-05-04 15:42:26,777 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:538 - [2/2] Extrayendo datos tecnicos a JSON...
+2026-05-04 15:42:26,777 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:418 - Generando JSON desde informe
+2026-05-04 15:42:42,158 - httpx - INFO - _client:1025 - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-04 15:42:42,159 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:452 - Guardando JSON: C:\Users\josem\Desktop\PruebasOllama\data_auditoria.json
+2026-05-04 15:42:42,160 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:457 - JSON guardado exitosamente: C:\Users\josem\Desktop\PruebasOllama\data_auditoria.json
+2026-05-04 15:42:42,160 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:547 - -- GENERACION FINALIZADA --
+2026-05-04 15:42:42,160 - main - INFO - main:29 - Generación de informe completada con éxito
+2026-05-04 18:41:33,845 - main - INFO - main:23 - Iniciando generación de informe pedagógico
+2026-05-04 18:41:33,846 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:481 - Configuracion validada correctamente
+2026-05-04 18:41:33,846 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:486 - Iniciando generacion de informe completo
+2026-05-04 18:41:33,863 - httpx - INFO - _client:1025 - HTTP Request: GET http://127.0.0.1:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-04 18:41:33,864 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:61 - Modelo 'gpt-oss:120b-cloud' encontrado y disponible
+2026-05-04 18:41:33,864 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:96 - Extrayendo texto de PDF: C:\Users\josem\Desktop\PruebasOllama\PruebaInforme.pdf
+2026-05-04 18:41:33,870 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:96 - Extrayendo texto de PDF: C:\Users\josem\Desktop\PruebasOllama\PROMPTMEJORADO.pdf
+2026-05-04 18:41:33,879 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:96 - Extrayendo texto de PDF: C:\Users\josem\Desktop\PruebasOllama\FORMATO_SALIDA.pdf
+2026-05-04 18:41:33,883 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:96 - Extrayendo texto de PDF: C:\Users\josem\Desktop\PruebasOllama\PROMPT_JSON.pdf
+2026-05-04 18:41:33,887 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:501 - --- COMPROBANDO LECTURA DE PDFs ---
+2026-05-04 18:41:33,887 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:502 - Caracteres extrados de PruebaInforme.pdf: 2531
+2026-05-04 18:41:33,887 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:503 - Caracteres extrados de PROMPTMEJORADO.pdf: 8673
+2026-05-04 18:41:33,887 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:504 - Caracteres extrados de FORMATO_SALIDA.pdf: 2520
+2026-05-04 18:41:33,888 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:513 - --- DATOS TEMPORALES SIMULADOS ---
+2026-05-04 18:41:33,888 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:517 - [1/2] Generando Informe Pedagogico Narrativo y JSON en paralelo...
+2026-05-04 18:41:33,890 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:236 - Generando texto con modelo gpt-oss:120b-cloud
+2026-05-04 18:42:26,698 - httpx - INFO - _client:1025 - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-04 18:42:26,699 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:534 - === RESULTADO GENERADO ===
+2026-05-04 18:42:26,699 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:418 - Generando JSON desde informe
+2026-05-04 18:42:26,783 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:294 - Generando PDF: C:\Users\josem\Desktop\PruebasOllama\Respuesta_Agente_Ollama.pdf
+2026-05-04 18:42:26,798 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:348 - PDF generado exitosamente: C:\Users\josem\Desktop\PruebasOllama\Respuesta_Agente_Ollama.pdf
+2026-05-04 18:42:46,778 - httpx - INFO - _client:1025 - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-04 18:42:46,780 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:452 - Guardando JSON: C:\Users\josem\Desktop\PruebasOllama\data_auditoria.json
+2026-05-04 18:42:46,782 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:457 - JSON guardado exitosamente: C:\Users\josem\Desktop\PruebasOllama\data_auditoria.json
+2026-05-04 18:42:46,783 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:554 - -- GENERACION FINALIZADA --
+2026-05-04 18:42:46,783 - main - INFO - main:29 - Generación de informe completada con éxito
+2026-05-04 18:45:52,995 - main - INFO - main:23 - Iniciando generación de informe pedagógico
+2026-05-04 18:45:52,995 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:481 - Configuracion validada correctamente
+2026-05-04 18:45:52,995 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:486 - Iniciando generacion de informe completo
+2026-05-04 18:45:53,016 - httpx - INFO - _client:1025 - HTTP Request: GET http://127.0.0.1:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-04 18:45:53,017 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:61 - Modelo 'gpt-oss:120b-cloud' encontrado y disponible
+2026-05-04 18:45:53,018 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:96 - Extrayendo texto de PDF: C:\Users\josem\Desktop\PruebasOllama\PruebaInforme.pdf
+2026-05-04 18:45:53,026 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:96 - Extrayendo texto de PDF: C:\Users\josem\Desktop\PruebasOllama\PROMPTMEJORADO.pdf
+2026-05-04 18:45:53,035 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:96 - Extrayendo texto de PDF: C:\Users\josem\Desktop\PruebasOllama\FORMATO_SALIDA.pdf
+2026-05-04 18:45:53,039 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:96 - Extrayendo texto de PDF: C:\Users\josem\Desktop\PruebasOllama\PROMPT_JSON.pdf
+2026-05-04 18:45:53,043 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:501 - --- COMPROBANDO LECTURA DE PDFs ---
+2026-05-04 18:45:53,044 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:502 - Caracteres extrados de PruebaInforme.pdf: 2531
+2026-05-04 18:45:53,044 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:503 - Caracteres extrados de PROMPTMEJORADO.pdf: 8673
+2026-05-04 18:45:53,044 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:504 - Caracteres extrados de FORMATO_SALIDA.pdf: 2520
+2026-05-04 18:45:53,045 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:513 - --- DATOS TEMPORALES SIMULADOS ---
+2026-05-04 18:45:53,045 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:517 - [1/2] Generando Informe Pedagogico Narrativo y JSON en paralelo...
+2026-05-04 18:45:53,048 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:236 - Generando texto con modelo gpt-oss:120b-cloud
+2026-05-04 18:46:32,257 - httpx - INFO - _client:1025 - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-04 18:46:32,258 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:534 - === RESULTADO GENERADO ===
+2026-05-04 18:46:32,258 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:418 - Generando JSON desde informe
+2026-05-04 18:46:32,344 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:294 - Generando PDF: C:\Users\josem\Desktop\PruebasOllama\Respuesta_Agente_Ollama.pdf
+2026-05-04 18:46:32,357 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:348 - PDF generado exitosamente: C:\Users\josem\Desktop\PruebasOllama\Respuesta_Agente_Ollama.pdf
+2026-05-04 18:47:00,514 - httpx - INFO - _client:1025 - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-04 18:47:00,515 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:452 - Guardando JSON: C:\Users\josem\Desktop\PruebasOllama\data_auditoria.json
+2026-05-04 18:47:00,516 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:457 - JSON guardado exitosamente: C:\Users\josem\Desktop\PruebasOllama\data_auditoria.json
+2026-05-04 18:47:00,517 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:554 - -- GENERACION FINALIZADA --
+2026-05-04 18:47:00,517 - main - INFO - main:29 - Generación de informe completada con éxito
+2026-05-04 18:53:32,950 - main - INFO - main:23 - Iniciando generación de informe pedagógico
+2026-05-04 18:53:32,951 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:503 - Configuracion validada correctamente
+2026-05-04 18:53:32,951 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:508 - Iniciando generacion de informe completo
+2026-05-04 18:53:32,968 - httpx - INFO - _client:1025 - HTTP Request: GET http://127.0.0.1:11434/api/tags "HTTP/1.1 200 OK"
+2026-05-04 18:53:32,969 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:61 - Modelo 'gpt-oss:120b-cloud' encontrado y disponible
+2026-05-04 18:53:32,969 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:96 - Extrayendo texto de PDF: C:\Users\josem\Desktop\PruebasOllama\PruebaInforme.pdf
+2026-05-04 18:53:32,975 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:96 - Extrayendo texto de PDF: C:\Users\josem\Desktop\PruebasOllama\PROMPTMEJORADO.pdf
+2026-05-04 18:53:32,984 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:96 - Extrayendo texto de PDF: C:\Users\josem\Desktop\PruebasOllama\FORMATO_SALIDA.pdf
+2026-05-04 18:53:32,988 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:96 - Extrayendo texto de PDF: C:\Users\josem\Desktop\PruebasOllama\PROMPT_JSON.pdf
+2026-05-04 18:53:32,992 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:523 - --- COMPROBANDO LECTURA DE PDFs ---
+2026-05-04 18:53:32,992 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:524 - Caracteres extrados de PruebaInforme.pdf: 2531
+2026-05-04 18:53:32,992 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:525 - Caracteres extrados de PROMPTMEJORADO.pdf: 8673
+2026-05-04 18:53:32,992 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:526 - Caracteres extrados de FORMATO_SALIDA.pdf: 2520
+2026-05-04 18:53:32,993 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:535 - --- DATOS TEMPORALES SIMULADOS ---
+2026-05-04 18:53:32,993 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:539 - [1/2] Generando Informe Pedagogico Narrativo y JSON en paralelo...
+2026-05-04 18:53:32,995 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:258 - Generando texto con modelo gpt-oss:120b-cloud
+2026-05-04 18:54:26,853 - httpx - INFO - _client:1025 - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-04 18:54:27,144 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:556 - === RESULTADO GENERADO ===
+2026-05-04 18:54:27,144 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:440 - Generando JSON desde informe
+2026-05-04 18:54:27,223 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:316 - Generando PDF: C:\Users\josem\Desktop\PruebasOllama\Respuesta_Agente_Ollama.pdf
+2026-05-04 18:54:27,237 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:370 - PDF generado exitosamente: C:\Users\josem\Desktop\PruebasOllama\Respuesta_Agente_Ollama.pdf
+2026-05-04 18:54:45,571 - httpx - INFO - _client:1025 - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-05-04 18:54:45,574 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:474 - Guardando JSON: C:\Users\josem\Desktop\PruebasOllama\data_auditoria.json
+2026-05-04 18:54:45,576 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:479 - JSON guardado exitosamente: C:\Users\josem\Desktop\PruebasOllama\data_auditoria.json
+2026-05-04 18:54:45,576 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:576 - -- GENERACION FINALIZADA --
+2026-05-04 18:54:45,577 - main - INFO - main:29 - Generación de informe completada con éxito
+2026-06-07 13:41:43,493 - main - INFO - main:23 - Iniciando generación de informe pedagógico
+2026-06-07 13:41:43,493 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:503 - Configuracion validada correctamente
+2026-06-07 13:41:43,493 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:508 - Iniciando generacion de informe completo
+2026-06-07 13:41:43,507 - httpx - INFO - _client:1025 - HTTP Request: GET http://127.0.0.1:11434/api/tags "HTTP/1.1 200 OK"
+2026-06-07 13:41:43,508 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:61 - Modelo 'gpt-oss:120b-cloud' encontrado y disponible
+2026-06-07 13:41:43,508 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:96 - Extrayendo texto de PDF: C:\Users\josem\Desktop\PruebasOllama\PruebaInforme.pdf
+2026-06-07 13:41:43,540 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:96 - Extrayendo texto de PDF: C:\Users\josem\Desktop\PruebasOllama\PROMPTMEJORADO.pdf
+2026-06-07 13:41:43,556 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:96 - Extrayendo texto de PDF: C:\Users\josem\Desktop\PruebasOllama\FORMATO_SALIDA.pdf
+2026-06-07 13:41:43,568 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:96 - Extrayendo texto de PDF: C:\Users\josem\Desktop\PruebasOllama\PROMPT_JSON.pdf
+2026-06-07 13:41:43,589 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:523 - --- COMPROBANDO LECTURA DE PDFs ---
+2026-06-07 13:41:43,589 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:524 - Caracteres extrados de PruebaInforme.pdf: 2531
+2026-06-07 13:41:43,589 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:525 - Caracteres extrados de PROMPTMEJORADO.pdf: 8673
+2026-06-07 13:41:43,589 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:526 - Caracteres extrados de FORMATO_SALIDA.pdf: 2520
+2026-06-07 13:41:43,589 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:535 - --- DATOS TEMPORALES SIMULADOS ---
+2026-06-07 13:41:43,590 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:539 - [1/2] Generando Informe Pedagogico Narrativo y JSON...
+2026-06-07 13:41:43,591 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:258 - Generando texto con modelo gpt-oss:120b-cloud
+2026-06-07 13:42:07,203 - httpx - INFO - _client:1025 - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-06-07 13:42:07,204 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:556 - === RESULTADO GENERADO ===
+2026-06-07 13:42:07,205 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:440 - Generando JSON desde informe
+2026-06-07 13:42:09,358 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:316 - Generando PDF: C:\Users\josem\Desktop\PruebasOllama\Respuesta_Agente_Ollama.pdf
+2026-06-07 13:42:09,373 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:370 - PDF generado exitosamente: C:\Users\josem\Desktop\PruebasOllama\Respuesta_Agente_Ollama.pdf
+2026-06-07 13:42:22,780 - httpx - INFO - _client:1025 - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-06-07 13:42:22,781 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:474 - Guardando JSON: C:\Users\josem\Desktop\PruebasOllama\data_auditoria.json
+2026-06-07 13:42:22,781 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:479 - JSON guardado exitosamente: C:\Users\josem\Desktop\PruebasOllama\data_auditoria.json
+2026-06-07 13:42:22,782 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:576 - -- GENERACION FINALIZADA --
+2026-06-07 13:42:22,782 - main - INFO - main:29 - Generación de informe completada con éxito
+2026-06-07 13:47:20,390 - main - INFO - main:23 - Iniciando generación de informe pedagógico
+2026-06-07 13:47:20,390 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:609 - Configuracion validada correctamente
+2026-06-07 13:47:20,390 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:614 - Iniciando generacion de informe completo
+2026-06-07 13:47:20,403 - httpx - INFO - _client:1025 - HTTP Request: GET http://127.0.0.1:11434/api/tags "HTTP/1.1 200 OK"
+2026-06-07 13:47:20,404 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:62 - Modelo 'gpt-oss:120b-cloud' encontrado y disponible
+2026-06-07 13:47:20,404 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:97 - Extrayendo texto de PDF: C:\Users\josem\Desktop\PruebasOllama\PruebaInforme.pdf
+2026-06-07 13:47:20,410 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:97 - Extrayendo texto de PDF: C:\Users\josem\Desktop\PruebasOllama\PROMPTMEJORADO.pdf
+2026-06-07 13:47:20,418 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:97 - Extrayendo texto de PDF: C:\Users\josem\Desktop\PruebasOllama\FORMATO_SALIDA.pdf
+2026-06-07 13:47:20,423 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:97 - Extrayendo texto de PDF: C:\Users\josem\Desktop\PruebasOllama\PROMPT_JSON.pdf
+2026-06-07 13:47:20,426 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:629 - --- COMPROBANDO LECTURA DE PDFs ---
+2026-06-07 13:47:20,426 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:630 - Caracteres extrados de PruebaInforme.pdf: 2531
+2026-06-07 13:47:20,426 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:631 - Caracteres extrados de PROMPTMEJORADO.pdf: 8673
+2026-06-07 13:47:20,426 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:632 - Caracteres extrados de FORMATO_SALIDA.pdf: 2520
+2026-06-07 13:47:20,427 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:641 - --- DATOS TEMPORALES SIMULADOS ---
+2026-06-07 13:47:20,427 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:645 - [1/2] Generando Informe Pedagogico Narrativo y JSON...
+2026-06-07 13:47:20,428 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:259 - Generando texto con modelo gpt-oss:120b-cloud
+2026-06-07 13:47:46,137 - httpx - INFO - _client:1025 - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-06-07 13:47:46,138 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:662 - === RESULTADO GENERADO ===
+2026-06-07 13:47:46,138 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:546 - Generando JSON desde informe
+2026-06-07 13:47:46,465 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:361 - Generando PDF: C:\Users\josem\Desktop\PruebasOllama\Respuesta_Agente_Ollama.pdf
+2026-06-07 13:47:46,486 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:382 - PDF generado exitosamente: C:\Users\josem\Desktop\PruebasOllama\Respuesta_Agente_Ollama.pdf
+2026-06-07 13:48:00,027 - httpx - INFO - _client:1025 - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-06-07 13:48:00,029 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:580 - Guardando JSON: C:\Users\josem\Desktop\PruebasOllama\data_auditoria.json
+2026-06-07 13:48:00,030 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:585 - JSON guardado exitosamente: C:\Users\josem\Desktop\PruebasOllama\data_auditoria.json
+2026-06-07 13:48:00,031 - src.core.generador_texto_ollama - INFO - generador_texto_ollama:682 - -- GENERACION FINALIZADA --
+2026-06-07 13:48:00,031 - main - INFO - main:29 - Generación de informe completada con éxito

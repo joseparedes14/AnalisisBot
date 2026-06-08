@@ -1,0 +1,99 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Configuración del Generador de Informes Pedagógicos",
+    "description": "Archivo de configuración para el generador de informes pedagógicos con Ollama",
+
+    "type": "object",
+    "properties": {
+        "input_pdf": {
+            "description": "Archivo PDF con la información de contexto",
+            "type": "string",
+            "default": "PruebaInforme.pdf"
+        },
+        "prompt_pdf": {
+            "description": "Archivo PDF con el prompt de la tarea",
+            "type": "string",
+            "default": "PROMPTMEJORADO.pdf"
+        },
+        "structure_pdf": {
+            "description": "Archivo PDF con las instrucciones de estructura",
+            "type": "string",
+            "default": "FORMATO_SALIDA.pdf"
+        },
+        "json_prompt_pdf": {
+            "description": "Archivo PDF con el prompt para extracción JSON",
+            "type": "string",
+            "default": "PROMPT_JSON.pdf"
+        },
+        "output_pdf": {
+            "description": "Archivo PDF de salida",
+            "type": "string",
+            "default": "Respuesta_Agente_Ollama.pdf"
+        },
+        "output_json": {
+            "description": "Archivo JSON de salida",
+            "type": "string",
+            "default": "data_auditoria.json"
+        },
+        "ollama_model": {
+            "description": "Modelo de Ollama a utilizar",
+            "type": "string",
+            "default": "gpt-oss:120b-cloud"
+        },
+        "ollama_options": {
+            "description": "Opciones para la generación con Ollama",
+            "type": "object",
+            "properties": {
+                "temperature": {
+                    "description": "Temperatura para la generación (0.0-1.0)",
+                    "type": "number",
+                    "minimum": 0.0,
+                    "maximum": 1.0,
+                    "default": 0.2
+                },
+                "top_p": {
+                    "description": "Top-p para la generación (0.0-1.0)",
+                    "type": "number",
+                    "minimum": 0.0,
+                    "maximum": 1.0,
+                    "default": 0.9
+                },
+                "num_ctx": {
+                    "description": "Contexto máximo para el modelo",
+                    "type": "integer",
+                    "minimum": 1024,
+                    "default": 8192
+                },
+                "repeat_penalty": {
+                    "description": "Penalización por repetición",
+                    "type": "number",
+                    "minimum": 0.0,
+                    "default": 1.05
+                }
+            },
+            "default": {
+                "temperature": 0.2,
+                "top_p": 0.9,
+                "num_ctx": 8192,
+                "repeat_penalty": 1.05
+            }
+        },
+        "log_level": {
+            "description": "Nivel de logging",
+            "type": "string",
+            "enum": ["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"],
+            "default": "INFO"
+        },
+        "log_file": {
+            "description": "Archivo de log",
+            "type": "string",
+            "default": "generador.log"
+        },
+        "verbose": {
+            "description": "Modo verbose",
+            "type": "boolean",
+            "default": false
+        }
+    },
+    "additionalProperties": false
+}
