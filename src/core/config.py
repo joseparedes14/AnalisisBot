@@ -24,7 +24,7 @@ DEFAULT_CONFIG = {
     "json_prompt_pdf": "PROMPT_JSON.pdf",
     "output_pdf": "Respuesta_Agente_Ollama.pdf",
     "output_json": "data_auditoria.json",
-    "ollama_model": "gpt-oss:120b-cloud",
+    "ollama_model": "llama3.2:latest",
     "ollama_options": {
         "temperature": 0.1,
         "top_p": 0.8,

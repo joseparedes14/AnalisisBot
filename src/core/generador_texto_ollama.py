@@ -39,7 +39,7 @@ from ..utils.simulador import generar_datos_temporales
 # Configurar logger
 logger = get_logger(__name__)
 
-def verificar_ollama(modelo: str = 'gpt-oss:120b-cloud') -> bool:
+def verificar_ollama(modelo: str = 'llama3.2:latest') -> bool:
     """
     Verifica si Ollama esta disponible y el modelo esta instalado.
 
@@ -145,7 +145,7 @@ def generar_texto_estructurado(
     prompt_tarea: str,
     instrucciones_estructura: str,
     datos_temporales_json: Optional[Union[str, List[Dict[str, Any]]]] = None,
-    modelo: str = 'gpt-oss:120b-cloud',
+    modelo: str = 'llama3.2:latest',
     options: Optional[Dict[str, Any]] = None
 ) -> str:
     """
@@ -522,7 +522,7 @@ def _normalizar_texto_latin1(texto: str) -> str:
 def generar_json_desde_informe(
     informe: str,
     prompt_json_extractor: str,
-    modelo: str = 'gpt-oss:120b-cloud'
+    modelo: str = 'llama3.2:latest'
 ) -> str:
     """
     Genera un JSON a partir de un informe usando Ollama.
@@ -613,6 +613,24 @@ def generar_informe_completo(config) -> None:
 
     logger.info("Iniciando generacion de informe completo")
 
+    # Verificar que los PDFs de entrada existan antes de continuar
+    pdfs_requeridos = {
+        "input_pdf": config.get("input_pdf"),
+        "prompt_pdf": config.get("prompt_pdf"),
+        "structure_pdf": config.get("structure_pdf"),
+        "json_prompt_pdf": config.get("json_prompt_pdf")
+    }
+    
+    pdfs_faltantes = []
+    for nombre, ruta in pdfs_requeridos.items():
+        if not Path(ruta).exists():
+            pdfs_faltantes.append(f"  - {nombre}: {ruta}")
+    
+    if pdfs_faltantes:
+        error_msg = "Faltan los siguientes archivos PDF de entrada:\n" + "\n".join(pdfs_faltantes)
+        logger.error(error_msg)
+        raise FileNotFoundError(error_msg)
+
     # Verificar disponibilidad de Ollama antes de continuar
     modelo = config.get("ollama_model")
     if not verificar_ollama(modelo):
@@ -648,36 +666,43 @@ def generar_informe_completo(config) -> None:
         opts = config.get("ollama_options")
 
         with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
-            # Enviar ambas tareas en paralelo
+            # Enviar generación de texto
             futuro_texto = executor.submit(
                 generar_texto_estructurado,
                 info_texto, mi_prompt, mis_instrucciones, json_cronograma, modelo, opts
             )
-            # Preparar datos para JSON (se genera después del texto)
-            futuro_json = None
 
-            # Primero obtener el texto
-            texto_final = futuro_texto.result()
+            # Obtener el texto (con manejo de errores)
+            try:
+                texto_final = futuro_texto.result(timeout=300)
+            except concurrent.futures.TimeoutError:
+                raise OllamaGenerationError("La generación de texto excedió el tiempo límite (5 min)")
+            except Exception as e:
+                raise OllamaGenerationError(f"Error al generar texto: {e}")
 
             logger.info("=== RESULTADO GENERADO ===")
             logger.debug(f"Texto generado: {texto_final[:500]}...")
 
-            # Una vez tenemos el texto, lanzar extracción JSON en paralelo
+            # Guardar resultado en PDF (primero, antes del JSON)
+            guardar_resultado_en_pdf(
+                texto_final,
+                nombre_archivo=config.get("output_pdf")
+            )
+
+            # Generar y guardar JSON
             if texto_final and not texto_final.startswith("Error"):
                 futuro_json = executor.submit(
                     generar_json_desde_informe,
                     texto_final, prompt_json_extractor, modelo
                 )
-
-                # Guardar resultado en PDF
-                guardar_resultado_en_pdf(
-                    texto_final,
-                    nombre_archivo=config.get("output_pdf")
-                )
-
-                # Obtener JSON y guardar
-                respuesta_json = futuro_json.result()
-                guardar_json(respuesta_json, config.get("output_json"))
+                
+                try:
+                    respuesta_json = futuro_json.result(timeout=120)
+                    guardar_json(respuesta_json, config.get("output_json"))
+                except concurrent.futures.TimeoutError:
+                    logger.warning("La generación de JSON excedió el tiempo límite. Se omite JSON.")
+                except Exception as e:
+                    logger.warning(f"Error al generar JSON: {e}. Se omite JSON.")
 
         logger.info("-- GENERACION FINALIZADA --")
 

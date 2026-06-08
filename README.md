@@ -53,7 +53,7 @@ source venv/bin/activate  # Linux/Mac
 pip install -r requirements.txt
 
 # Asegurarse de que Ollama esté ejecutándose
-ollama pull gpt-oss:120b-cloud  # o el modelo que prefieras
+ollama pull llama3.2:latest  # o el modelo que prefieras
 ```
 
 ## Uso
@@ -74,7 +74,7 @@ python main.py \
     --json-prompt PROMPT_JSON.pdf \
     --output-pdf Respuesta_Agente_Ollama.pdf \
     --output-json data_auditoria.json \
-    --model gpt-oss:120b-cloud
+    --model llama3.2:latest
 ```
 
 ### Archivo de configuración
@@ -90,7 +90,7 @@ python main.py --config config\config.json
 
 ```bash
 set GENERADOR_INPUT_PDF=PruebaInforme.pdf
-set GENERADOR_OLLAMA_MODEL=gpt-oss:120b-cloud
+set GENERADOR_OLLAMA_MODEL=llama3.2:latest
 set GENERADOR_OLLAMA_OPTIONS={"temperature": 0.2, "top_p": 0.9}
 python main.py
 ```

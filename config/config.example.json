@@ -38,7 +38,7 @@
         "ollama_model": {
             "description": "Modelo de Ollama a utilizar",
             "type": "string",
-            "default": "gpt-oss:120b-cloud"
+            "default": "llama3.2:latest"
         },
         "ollama_options": {
             "description": "Opciones para la generación con Ollama",

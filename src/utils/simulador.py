@@ -1,16 +1,22 @@
 import json
 import random
 
-def generar_datos_temporales():
+def generar_datos_temporales() -> str:
     """
     Genera datos simulados en formato JSON que representan la evolución 
     de métricas durante el desarrollo de una clase o sesión escolar.
     """
-    datos = []
+    datos: list[dict[str, int | float]] = []
     
     # Simularemos una clase de 60 minutos, tomando registros cada minuto
     for minuto in range(0, 61):
         # Simulación basada en comportamientos lógicos durante la clase:
+        
+        # Las variables numéricas internas también pueden llevar su tipo 
+        apsud: int
+        mr: int
+        psu: int
+        psur: int
         
         # Inicio (minutos 0 al 5): baja atención al inicio, estudiantes entrando y acomodándose
         if minuto <= 5:
