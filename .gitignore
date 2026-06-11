@@ -31,3 +31,9 @@ desktop.ini
 # --- Carpetas de editores de código ---
 .vscode/
 .idea/
+
+
+
+build/
+dist/
+*.egg-info/
