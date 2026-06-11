@@ -452,18 +452,72 @@ def _generar_pdf_fpdf(texto: str, output_path: str) -> None:
     """Genera PDF usando fpdf original (sin Unicode)."""
     from fpdf import FPDF
 
-    pdf = FPDF(core_fonts_encoding="utf-8")
+    pdf = FPDF()
     pdf.add_page()
     pdf.set_auto_page_break(auto=True, margin=15)
-    pdf.set_font("helvetica", size=11)
+    pdf.set_font("Arial", size=11)
 
-    for linea in texto.split('\n'):
+    texto_normalizado = _normalizar_texto_latin1(texto)
+
+    for linea in texto_normalizado.split('\n'):
         if linea.strip():
-            pdf.multi_cell(0, 6, text=linea)  # En fpdf2 se usa 'text', no 'txt'
+            pdf.multi_cell(0, 6, txt=linea)
 
     pdf.output(str(output_path))
 
 
+def _normalizar_texto_latin1(texto: str) -> str:
+    """
+    Normaliza texto para PDF legacy (Latin-1).
+    Convierte caracteres Unicode comunes a equivalentes Latin-1.
+    """
+    import unicodedata
+
+    # Normalizar Unicode (NFD separa acentos, NFC los combina)
+    texto = unicodedata.normalize('NFC', texto)
+
+    # Eliminar caracteres de control (excepto \n, \t, \r)
+    texto = ''.join(
+        char for char in texto
+        if unicodedata.category(char) != 'Cc' or char in '\n\t\r'
+    )
+
+    MAPA_UNICODE = {
+        '\u2018': "'", '\u2019': "'",  # comillas simples curvas
+        '\u201c': '"', '\u201d': '"',  # comillas dobles curvas
+        '\u2013': '-', '\u2014': '-',  # guiones
+        '\u2026': '...',                # puntos suspensivos
+        '\u2022': '-',                  # bullet
+        '\u20AC': chr(164),             # Euro -> ¤
+        '\u2122': '(TM)',              # Trademark
+        '\u00A0': ' ',                  # non-breaking space
+        '\u00AD': '',                  # soft hyphen
+    }
+
+    resultado = []
+    for char in texto:
+        codigo = ord(char)
+        if codigo <= 255:
+            resultado.append(char)
+        elif char in MAPA_UNICODE:
+            resultado.append(MAPA_UNICODE[char])
+        else:
+            # Decomposition fallback: ej. ñ -> n + ~
+            descomp = unicodedata.decomposition(char)
+            if descomp:
+                base = descomp.split()[0] if descomp else ''
+                try:
+                    base_char = chr(int(base, 16)) if base else '?'
+                    if ord(base_char) <= 255:
+                        resultado.append(base_char)
+                    else:
+                        resultado.append('?')
+                except (ValueError, IndexError):
+                    resultado.append('?')
+            else:
+                resultado.append('?')
+
+    return ''.join(resultado)
 
 def generar_json_desde_informe(
     informe: str,
