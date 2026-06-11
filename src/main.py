@@ -21,7 +21,15 @@ def main() -> int:
         logger = get_logger("main")
 
         logger.info("Iniciando generación de informe pedagógico")
-        logger.debug(f"Configuración: {config.to_dict()}")
+        
+        config_dict = config.to_dict().copy()
+        claves_sensibles = ["password", "secret", "token", "api_key", "database_url"]
+        
+        for clave in config_dict:
+            if any(palabra in clave.lower() for palabra in claves_sensibles):
+                config_dict[clave] = "********"
+    
+        logger.debug(f"Configuración (filtrada): {config_dict}")
 
         # Generar el informe
         generar_informe_completo(config)
