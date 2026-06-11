@@ -103,7 +103,7 @@ def validate_config(config: Dict[str, Any]) -> None:
         DataValidationError: Si la configuración es inválida
     """
     required_keys = [
-        'input_pdf', 'prompt_pdf', 'structure_pdf', 'json_prompt_pdf',
+        'input_source', 'prompt_pdf', 'structure_pdf', 'json_prompt_pdf',
         'output_pdf', 'output_json', 'ollama_model'
     ]
 
@@ -111,12 +111,15 @@ def validate_config(config: Dict[str, Any]) -> None:
         if key not in config or not config[key]:
             raise DataValidationError(f"Falta el parámetro requerido: {key}")
 
-    # Validar que los archivos de entrada existan
+    # Validar que input_source sea un JSON
+    if not config['input_source'].endswith('.json'):
+        raise DataValidationError("input_source debe ser un archivo JSON")
+
+    # Validar que el archivo de entrada exista
     from pathlib import Path
 
-    for key in ['input_pdf', 'prompt_pdf', 'structure_pdf', 'json_prompt_pdf']:
-        if not Path(config[key]).exists():
-            logger.warning(f"El archivo {config[key]} no existe, pero se continuará con la ejecución")
+    if not Path(config['input_source']).exists():
+        logger.warning(f"El archivo {config['input_source']} no existe, pero se continuará con la ejecución")
 
     # Validar opciones de Ollama
     if 'ollama_options' in config and config['ollama_options']:

@@ -119,7 +119,7 @@ class TestValidateConfig:
 
     def test_config_valida(self):
         config = {
-            "input_pdf": "PruebaInforme.pdf",
+            "input_source": "transcripcion.json",
             "prompt_pdf": "PROMPTMEJORADO.pdf",
             "structure_pdf": "FORMATO_SALIDA.pdf",
             "json_prompt_pdf": "PROMPT_JSON.pdf",
@@ -132,7 +132,7 @@ class TestValidateConfig:
 
     def test_config_falta_parametro(self):
         config = {
-            "input_pdf": "PruebaInforme.pdf"
+            "input_source": "transcripcion.json"
             # Faltan otros parámetros requeridos
         }
         with pytest.raises(DataValidationError):
@@ -140,7 +140,7 @@ class TestValidateConfig:
 
     def test_config_opciones_invalidas(self):
         config = {
-            "input_pdf": "PruebaInforme.pdf",
+            "input_source": "transcripcion.json",
             "prompt_pdf": "PROMPTMEJORADO.pdf",
             "structure_pdf": "FORMATO_SALIDA.pdf",
             "json_prompt_pdf": "PROMPT_JSON.pdf",
@@ -150,6 +150,19 @@ class TestValidateConfig:
             "ollama_options": {
                 "temperature": 2.0  # Fuera de rango
             }
+        }
+        with pytest.raises(DataValidationError):
+            validate_config(config)
+
+    def test_config_input_no_json(self):
+        config = {
+            "input_source": "archivo.txt",  # No es JSON
+            "prompt_pdf": "PROMPTMEJORADO.pdf",
+            "structure_pdf": "FORMATO_SALIDA.pdf",
+            "json_prompt_pdf": "PROMPT_JSON.pdf",
+            "output_pdf": "salida.pdf",
+            "output_json": "salida.json",
+            "ollama_model": "llama3.2:latest"
         }
         with pytest.raises(DataValidationError):
             validate_config(config)

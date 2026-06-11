@@ -34,7 +34,6 @@ from .errors import (
     get_logger
 )
 from .validators import validate_temporal_data, validate_config
-from ..utils.simulador import generar_datos_temporales
 
 # Configurar logger
 logger = get_logger(__name__)
@@ -549,6 +548,9 @@ def generar_informe_completo(config) -> None:
         PDFGenerationError: Si ocurre un error al generar el PDF
         JSONGenerationError: Si ocurre un error al generar o guardar el JSON
     """
+    # Importar input_processor
+    from .input_processor import procesar_json_transcripcion
+
     try:
         # Validar configuracion
         validate_config(config.to_dict())
@@ -559,9 +561,15 @@ def generar_informe_completo(config) -> None:
 
     logger.info("Iniciando generacion de informe completo")
 
-    # Verificar que los PDFs de entrada existan antes de continuar
+    # Verificar que el JSON de entrada exista
+    input_source = config.get("input_source")
+    if not Path(input_source).exists():
+        error_msg = f"El archivo JSON de entrada no existe: {input_source}"
+        logger.error(error_msg)
+        raise FileNotFoundError(error_msg)
+
+    # Verificar que los PDFs de configuración existan
     pdfs_requeridos = {
-        "input_pdf": config.get("input_pdf"),
         "prompt_pdf": config.get("prompt_pdf"),
         "structure_pdf": config.get("structure_pdf"),
         "json_prompt_pdf": config.get("json_prompt_pdf")
@@ -573,7 +581,7 @@ def generar_informe_completo(config) -> None:
             pdfs_faltantes.append(f"  - {nombre}: {ruta}")
     
     if pdfs_faltantes:
-        error_msg = "Faltan los siguientes archivos PDF de entrada:\n" + "\n".join(pdfs_faltantes)
+        error_msg = "Faltan los siguientes archivos PDF de configuración:\n" + "\n".join(pdfs_faltantes)
         logger.error(error_msg)
         raise FileNotFoundError(error_msg)
 
@@ -583,27 +591,23 @@ def generar_informe_completo(config) -> None:
         logger.warning("Ollama puede no estar disponible. Continuando de todos modos...")
 
     try:
-        # Extraer texto de los PDFs de entrada
-        info_texto = extraer_texto_pdf(config.get("input_pdf"))
+        # Procesar JSON de transcripción y calcular métricas reales
+        logger.info("--- PROCESANDO JSON DE TRANSCRIPCIÓN ---")
+        datos_clase = procesar_json_transcripcion(
+            input_source,
+            teacher_speaker=config.get("teacher_speaker", "auto")
+        )
+        
+        logger.info(f"Metadata: {datos_clase['metadata']}")
+        logger.info(f"Métricas calculadas: {list(datos_clase['metricas'].keys())}")
+
+        # Extraer texto de los PDFs de configuración
         mi_prompt = extraer_texto_pdf(config.get("prompt_pdf"))
         mis_instrucciones = extraer_texto_pdf(config.get("structure_pdf"))
         prompt_json_extractor = extraer_texto_pdf(config.get("json_prompt_pdf"))
 
-        # Diagnosticar texto extrado
-        logger.info("--- COMPROBANDO LECTURA DE PDFs ---")
-        logger.info(f"Caracteres extrados de {config.get('input_pdf')}: {len(info_texto)}")
-        logger.info(f"Caracteres extrados de {config.get('prompt_pdf')}: {len(mi_prompt)}")
-        logger.info(f"Caracteres extrados de {config.get('structure_pdf')}: {len(mis_instrucciones)}")
-
-        if len(info_texto) < 20 or len(mi_prompt) < 20:
-            logger.warning("ATENCION! PyMuPDF apenas leyo texto. "
-                          "Tu PDF esta vacio o es una imagen escaneada.")
-            logger.warning("Por eso la IA se lo inventa: no esta recibiendo ninguna informacion.")
-
-        # Generar datos temporales
-        json_cronograma = generar_datos_temporales()
-        logger.info("--- DATOS TEMPORALES SIMULADOS ---")
-        logger.debug(f"Datos temporales: {json_cronograma[:300]}...")
+        logger.info(f"Caracteres extraídos de {config.get('prompt_pdf')}: {len(mi_prompt)}")
+        logger.info(f"Caracteres extraídos de {config.get('structure_pdf')}: {len(mis_instrucciones)}")
 
         # Generar informe pedagógico narrativo y JSON
         logger.info("[1/2] Generando Informe Pedagogico Narrativo y JSON...")
@@ -612,10 +616,15 @@ def generar_informe_completo(config) -> None:
         opts = config.get("ollama_options")
 
         with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
-            # Enviar generación de texto
+            # Enviar generación de texto con métricas reales
             futuro_texto = executor.submit(
                 generar_texto_estructurado,
-                info_texto, mi_prompt, mis_instrucciones, json_cronograma, modelo, opts
+                json.dumps(datos_clase['metricas'], indent=2, ensure_ascii=False),
+                mi_prompt,
+                mis_instrucciones,
+                None,  # No necesitamos datos temporales simulados
+                modelo,
+                opts
             )
 
             # Obtener el texto (con manejo de errores)
@@ -644,7 +653,15 @@ def generar_informe_completo(config) -> None:
                 
                 try:
                     respuesta_json = futuro_json.result(timeout=120)
-                    guardar_json(respuesta_json, config.get("output_json"))
+                    
+                    # Guardar JSON con métricas reales + análisis del LLM
+                    datos_salida = {
+                        "metadata": datos_clase['metadata'],
+                        "metricas": datos_clase['metricas'],
+                        "analisis_llm": respuesta_json
+                    }
+                    guardar_json(json.dumps(datos_salida, indent=2, ensure_ascii=False), config.get("output_json"))
+                    
                 except concurrent.futures.TimeoutError:
                     logger.warning("La generación de JSON excedió el tiempo límite. Se omite JSON.")
                 except Exception as e:

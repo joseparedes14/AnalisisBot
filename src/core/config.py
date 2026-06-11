@@ -18,7 +18,8 @@ from .errors import ConfigurationError
 
 # Configuración por defecto
 DEFAULT_CONFIG = {
-    "input_pdf": "PruebaInforme.pdf",
+    "input_source": "",  # Ruta al JSON de transcripción
+    "teacher_speaker": "auto",  # "auto" para detectar automáticamente
     "prompt_pdf": "PROMPTMEJORADO.pdf",
     "structure_pdf": "FORMATO_SALIDA.pdf",
     "json_prompt_pdf": "PROMPT_JSON.pdf",
@@ -62,8 +63,13 @@ class Config:
         Raises:
             ConfigurationError: Si la configuración es inválida
         """
-        # Validar rutas de archivos
-        for key in ["input_pdf", "prompt_pdf", "structure_pdf", "json_prompt_pdf"]:
+        # Validar input_source (debe ser JSON)
+        input_source = self.config.get("input_source", "")
+        if input_source and not input_source.endswith(".json"):
+            raise ConfigurationError("input_source debe ser un archivo JSON")
+
+        # Validar rutas de archivos PDF de configuración
+        for key in ["prompt_pdf", "structure_pdf", "json_prompt_pdf"]:
             if not isinstance(self.config[key], str) or not self.config[key].strip():
                 raise ConfigurationError(f"El valor de {key} debe ser una cadena no vacía")
 
@@ -159,7 +165,8 @@ def load_config_from_env() -> Dict[str, Any]:
 
     # Mapear variables de entorno a claves de configuración
     env_mapping = {
-        "GENERADOR_INPUT_PDF": "input_pdf",
+        "GENERADOR_INPUT_SOURCE": "input_source",
+        "GENERADOR_TEACHER_SPEAKER": "teacher_speaker",
         "GENERADOR_PROMPT_PDF": "prompt_pdf",
         "GENERADOR_STRUCTURE_PDF": "structure_pdf",
         "GENERADOR_JSON_PROMPT_PDF": "json_prompt_pdf",
@@ -203,8 +210,10 @@ def parse_args() -> argparse.Namespace:
     )
 
     # Archivos de entrada
-    parser.add_argument('--input', '-i',
-                        help='Archivo PDF con la información de contexto')
+    parser.add_argument('--input', '-i', required=True,
+                        help='Ruta al archivo JSON de transcripción')
+    parser.add_argument('--teacher',
+                        help='Speaker del teacher (default: auto-detect)')
     parser.add_argument('--prompt', '-p',
                         help='Archivo PDF con el prompt de la tarea')
     parser.add_argument('--structure', '-s',
@@ -278,7 +287,8 @@ def get_config() -> Config:
 
     # Mapear nombres de argumentos a claves de configuración
     arg_mapping = {
-        'input': 'input_pdf',
+        'input': 'input_source',
+        'teacher': 'teacher_speaker',
         'prompt': 'prompt_pdf',
         'structure': 'structure_pdf',
         'json_prompt': 'json_prompt_pdf',

@@ -15,7 +15,7 @@ class TestConfig:
     def test_config_por_defecto(self):
         config = Config()
         assert config.get("ollama_model") == "llama3.2:latest"
-        assert config.get("input_pdf") == "PruebaInforme.pdf"
+        assert config.get("teacher_speaker") == "auto"
 
     def test_config_personalizada(self):
         config_data = {"ollama_model": "llama3:latest", "verbose": True}
@@ -42,6 +42,10 @@ class TestConfig:
         with pytest.raises(ConfigurationError):
             Config({"log_level": "INVALIDO"})
 
+    def test_config_input_source_no_json(self):
+        with pytest.raises(ConfigurationError):
+            Config({"input_source": "archivo.txt"})
+
 
 class TestLoadConfigFromEnv:
     """Tests para load_config_from_env."""
@@ -62,6 +66,11 @@ class TestLoadConfigFromEnv:
         config = load_config_from_env()
         assert config["ollama_options"]["temperature"] == 0.5
 
+    def test_carga_input_source_desde_env(self, monkeypatch):
+        monkeypatch.setenv("GENERADOR_INPUT_SOURCE", "transcripcion.json")
+        config = load_config_from_env()
+        assert config["input_source"] == "transcripcion.json"
+
 
 class TestDefaultConfig:
     """Tests para la configuración por defecto."""
@@ -70,7 +79,7 @@ class TestDefaultConfig:
         assert DEFAULT_CONFIG["ollama_model"] == "llama3.2:latest"
 
     def test_archivos_requeridos(self):
-        required_keys = ["input_pdf", "prompt_pdf", "structure_pdf", "json_prompt_pdf"]
+        required_keys = ["prompt_pdf", "structure_pdf", "json_prompt_pdf"]
         for key in required_keys:
             assert key in DEFAULT_CONFIG
 
@@ -78,3 +87,7 @@ class TestDefaultConfig:
         assert "temperature" in DEFAULT_CONFIG["ollama_options"]
         assert "top_p" in DEFAULT_CONFIG["ollama_options"]
         assert "num_ctx" in DEFAULT_CONFIG["ollama_options"]
+
+    def test_input_source_existe(self):
+        assert "input_source" in DEFAULT_CONFIG
+        assert DEFAULT_CONFIG["input_source"] == ""
