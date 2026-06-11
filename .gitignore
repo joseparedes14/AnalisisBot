@@ -9,6 +9,8 @@
 
 # --- Archivos de Registro (Logs) ---
 *.log
+data_auditoria.json
+Respuesta_Agente_Ollama.pdf
 
 # --- Entornos Virtuales ---
 .venv/
