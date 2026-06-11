@@ -1,5 +1,0 @@
-fitz==0.0.1.dev2
-fpdf2==2.8.7
-ollama==0.6.2
-pydantic==2.13.4
-reportlab==4.5.1

@@ -8,16 +8,10 @@ authors = [
     { name = "Maria Celdrán Noguera" }
 ]
 
-#  Aquí están tus dependencias oficiales del proyecto
 dependencies = [
     "pymupdf>=1.24.0",
     "ollama>=0.4.0",
     "pydantic>=2.0.0",
     "reportlab>=4.0.0",
     "fpdf2>=2.7.0"
-]
-
-[project.optional-dependencies]
-dev = [
-    "pipreqs>=0.4.13"   
 ]
