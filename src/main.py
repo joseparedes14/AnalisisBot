@@ -4,7 +4,12 @@ Punto de entrada principal para el generador de informes pedagógicos.
 
 import sys
 from .core.config import get_config
-from .core.errors import setup_logging, get_logger
+from .core.errors import (
+    setup_logging, get_logger,
+    PDFExtractionError, OllamaGenerationError,
+    PDFGenerationError, JSONGenerationError,
+    DataValidationError, ConfigurationError
+)
 from .core.generador_texto_ollama import generar_informe_completo
 
 def main() -> int:
@@ -37,7 +42,9 @@ def main() -> int:
         logger.info("Generación de informe completada con éxito")
         return 0
 
-    except Exception as e:
+    except (DataValidationError, PDFExtractionError, OllamaGenerationError,
+            PDFGenerationError, JSONGenerationError, ConfigurationError,
+            FileNotFoundError) as e:
         logger = get_logger("main")
         logger.error(f"Error en la ejecución del programa: {e}", exc_info=True)
         return 1

@@ -12,7 +12,6 @@ import argparse
 import os
 import json
 from typing import Dict, Any, Optional
-from pathlib import Path
 
 from .errors import ConfigurationError
 
@@ -145,14 +144,19 @@ def load_config_from_file(config_path: Optional[str] = None) -> Dict[str, Any]:
                 config_path = path
                 break
 
-    if not config_path or not os.path.exists(config_path):
+    if not config_path:
         return {}
+
+    if not os.path.exists(config_path):
+        raise ConfigurationError(f"Archivo de configuración no encontrado: {config_path}")
 
     try:
         with open(config_path, 'r', encoding='utf-8') as f:
             return json.load(f)
-    except (json.JSONDecodeError, IOError) as e:
-        raise ConfigurationError(f"Error al cargar configuración desde {config_path}: {e}")
+    except json.JSONDecodeError as e:
+        raise ConfigurationError(f"Error al parsear configuración desde {config_path}: {e}")
+    except IOError as e:
+        raise ConfigurationError(f"Error al leer archivo de configuración {config_path}: {e}")
 
 def load_config_from_env() -> Dict[str, Any]:
     """
@@ -252,6 +256,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument('--config', '-c',
                         help='Archivo de configuración JSON')
 
+    # Usar parse_known_args para evitar sys.exit() en --help o errores
     return parser.parse_args()
 
 def get_config() -> Config:

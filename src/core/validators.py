@@ -7,6 +7,7 @@ Este módulo proporciona:
 - Validación de estructuras de datos temporales
 """
 
+import json
 from typing import Dict, Any, List, Union, Optional
 from pydantic import BaseModel, field_validator, ValidationError
 from .errors import DataValidationError, get_logger
@@ -61,8 +62,6 @@ def validate_temporal_data(data: Union[str, List[Dict[str, Any]]]) -> List[Dict[
     Raises:
         DataValidationError: Si los datos no son válidos
     """
-    import json
-
     try:
         # Convertir string JSON a lista si es necesario
         if isinstance(data, str):
@@ -89,7 +88,7 @@ def validate_temporal_data(data: Union[str, List[Dict[str, Any]]]) -> List[Dict[
 
     except json.JSONDecodeError as e:
         raise DataValidationError(f"Error al parsear datos temporales JSON: {e}")
-    except Exception as e:
+    except (json.JSONDecodeError, TypeError, ValueError) as e:
         raise DataValidationError(f"Error al validar datos temporales: {e}")
 
 def validate_config(config: Dict[str, Any]) -> None:

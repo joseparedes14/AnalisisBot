@@ -417,6 +417,9 @@ MIT License - ver [LICENSE](LICENSE) para más detalles.
 **María Celdrán Noguera**
 - GitHub: [@maria-celdrannoguera](https://github.com/maria-celdrannoguera)
 
+**José Paredes Salcedo**
+- GitHub: [@joseparedes14](https://github.com/joseparedes14)
+
 ---
 
 <div align="center">

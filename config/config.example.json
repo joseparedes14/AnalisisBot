@@ -5,10 +5,15 @@
 
     "type": "object",
     "properties": {
-        "input_pdf": {
-            "description": "Archivo PDF con la información de contexto",
+        "input_source": {
+            "description": "Archivo JSON de transcripción Whisper",
             "type": "string",
-            "default": "PruebaInforme.pdf"
+            "default": "transcripcion-clase-umu.json"
+        },
+        "teacher_speaker": {
+            "description": "Speaker del docente ('auto' para detectar automáticamente)",
+            "type": "string",
+            "default": "auto"
         },
         "prompt_pdf": {
             "description": "Archivo PDF con el prompt de la tarea",
@@ -49,14 +54,14 @@
                     "type": "number",
                     "minimum": 0.0,
                     "maximum": 1.0,
-                    "default": 0.2
+                    "default": 0.1
                 },
                 "top_p": {
                     "description": "Top-p para la generación (0.0-1.0)",
                     "type": "number",
                     "minimum": 0.0,
                     "maximum": 1.0,
-                    "default": 0.9
+                    "default": 0.8
                 },
                 "num_ctx": {
                     "description": "Contexto máximo para el modelo",
@@ -68,14 +73,14 @@
                     "description": "Penalización por repetición",
                     "type": "number",
                     "minimum": 0.0,
-                    "default": 1.05
+                    "default": 1.1
                 }
             },
             "default": {
-                "temperature": 0.2,
-                "top_p": 0.9,
+                "temperature": 0.1,
+                "top_p": 0.8,
                 "num_ctx": 8192,
-                "repeat_penalty": 1.05
+                "repeat_penalty": 1.1
             }
         },
         "log_level": {

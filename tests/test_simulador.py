@@ -3,7 +3,6 @@ Tests unitarios para el módulo simulador de datos temporales.
 """
 
 import json
-import pytest
 from src.utils.simulador import generar_datos_temporales
 
 

@@ -2,10 +2,9 @@
 Tests unitarios para el módulo de configuración.
 """
 
-import os
 import json
 import pytest
-from src.core.config import Config, get_config, DEFAULT_CONFIG, load_config_from_env
+from src.core.config import Config, DEFAULT_CONFIG, load_config_from_env
 from src.core.errors import ConfigurationError
 
 

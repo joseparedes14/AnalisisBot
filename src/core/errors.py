@@ -104,8 +104,4 @@ def log_exception(logger: logging.Logger, exc: Exception, message: str,
         message: Mensaje descriptivo
         extra: Información adicional para el log
     """
-    log_data = {"exception_type": type(exc).__name__, "exception_message": str(exc)}
-    if extra:
-        log_data.update(extra)
-
-    logger.error(message, extra=log_data, exc_info=True)
+    logger.error(f"{message} | Tipo: {type(exc).__name__} | Detalle: {exc}", exc_info=True)

@@ -9,8 +9,9 @@ Este modulo proporciona las funciones principales para:
 
 import json
 import os
+import importlib
 import concurrent.futures
-from typing import Optional, Dict, Any, Union, List, Tuple
+from typing import Optional, Dict, Any, Union, List
 from pathlib import Path
 
 # Importar dependencias
@@ -34,9 +35,20 @@ from .errors import (
     get_logger
 )
 from .validators import validate_temporal_data, validate_config
+from .input_processor import procesar_json_transcripcion
 
 # Configurar logger
 logger = get_logger(__name__)
+
+def listar_modelos_ollama() -> List[str]:
+    """Devuelve la lista de modelos disponibles en Ollama."""
+    if ollama is None:
+        return []
+    try:
+        modelos = ollama.list()
+        return [m['model'] for m in modelos.get('models', [])]
+    except (ConnectionError, TimeoutError):
+        return []
 
 def verificar_ollama(modelo: str = 'llama3.2:latest') -> bool:
     """
@@ -65,7 +77,7 @@ def verificar_ollama(modelo: str = 'llama3.2:latest') -> bool:
             logger.info(f"Para instalar el modelo: ollama pull {modelo}")
             return False
 
-    except Exception as e:
+    except (ConnectionError, TimeoutError) as e:
         logger.error(f"Error al conectar con Ollama: {e}")
         logger.info("Asegurate de que Ollama este en ejecucion")
         return False
@@ -110,7 +122,7 @@ def extraer_texto_pdf(ruta_pdf: str) -> str:
 
         return texto_completo
 
-    except Exception as e:
+    except (fitz.FileDataError, RuntimeError) as e:
         logger.error(f"Error al extraer texto de {ruta_absoluta}: {e}")
         raise PDFExtractionError(f"Error al extraer texto de {ruta_absoluta}: {e}")
 
@@ -169,58 +181,13 @@ def generar_texto_estructurado(
         raise OllamaGenerationError("La libreria ollama no esta instalada. "
                                   "Instalala con: pip install ollama")
 
-    # Configurar opciones por defecto - ajuste para análisis más limpio
     if options is None:
-        options = {
-            "temperature": 0.1,
-            "top_p": 0.8,
-            "num_ctx": 8192,
-            "repeat_penalty": 1.1
-        }
+        options = {}
 
-    # 1. Mensaje de Sistema (System Prompt) - Optimizado
-    mensaje_sistema = f"""Eres un analista pedagógico experto. Redacta informes profundos y bien razonados, anclándote exclusivamente en los datos proporcionados.
-
--REGLAS DE GENERACION:
-       -1. FIDELIDAD: Los datos cuantitativos proveniran UNICAMENTE de la INFORMACION DE CONTEXTO. No inventes met
-          -ricas ni numeros.
-       -2. PROFUNDIDAD Y PENSAMIENTO CRITICO (MUY IMPORTANTE): Ve mas alla de lo descriptivo. Para cada metrica o
-          -hallazgo clave, realiza una EVALUACION CRITICA EXHAUSTIVA: explora el "por que" detras de los numeros, for
-          -mula hipotesis logicas de por que ocurrieron, cruza la informacion de distintas variables (correlaciones),
-          - previene riesgos y plantea recomendaciones estrategicas a nivel macro.
-       -3. ESTILO: Escribe con un tono sumo, formal, complejo y altamente argumentativo, digno de una auditoria de
-          - alto nivel o tesis.
-       -4. ESTRUCTURA: Encaja esta narrativa extensa dentro de los encabezados solicitados. No anadas saludos ni c
-          -omentarios extra fuera de la estructura.
-       -5. NO REPETICION: Genera CADA SECCION EXACTAMENTE UNA VEZ. Cuando llegues al final de la estructura solici
-          -tada, DEBES DETENERTE de inmediato. JAMAS repitas bloques, cierres o recomendaciones.
-       -6. ANALISIS DENSO Y VINCULADO DE LAS 8 VARIABLES GLOBALES: En "Metricas Globales y Comparativas", ESTA PRO
-          -HIBIDO listar simplemente los valores y hacer un resumen generico o separado al final. DEBES dedicar un te
-          -xto robusto y extenso por CADA UNA de las 8 variables obligatorias (PSR, APSUD, ALD, SR, TTC, MR, VSUR, PS
-          -UR).
-       -Para cada metrica, utiliza obligatoriamente este formato integrado en parrafos:
-       -"**[NOMBRE DE LA METRICA] ([Valor exacto])**: [Redacta de manera fluida un ANALISIS PROFUNDO E INTEGRADO.
-          -Debes incluir OBLIGATORIAMENTE: 1. Interpretacion pedagogica (que clima o dinamica de poder refleja este n
-          -umero de forma subyacente?), 2. Interconexion cruzada (relaciona este dato explicitamente con al menos OTR
-          -A metrica distinta, por ejemplo, vincula el indice TTC con el PSR o las intervenciones breves VSUR), y 3.
-          -Hipotesis critica (deduce como esta combinacion afecta la asimilacion del conocimiento y el rol de los alu
-          -mnos).
-       -BAJO NINGUN CONCEPTO te limites a reescribir la definicion matematica de la metrica o a decir 'el docente
-          -habla el 80%']. La superficialidad y la falta de interconexion son fallos criticos.
-       -7. AGRUPACION EN BLOQUES IRREGULARES CON DATOS REALES: Rompe la sesion en bloques temporales asimetricos (
-          -ej. 0-14, 14-37, etc.) garantizando siempre un minimo de 10 min por bloque. Jamas cortes matematicamente d
-          -e 10 en 10. Dentro de cada bloque analiza SOLO "Protagonismo" y "Dinamica Discursiva". FUNDAMENTAL: Observ
-          -a la tabla de datos temporal REAL provista, deduce a partir de sus variaciones por que elegiste ese bloque
-          - y explica con profundidad pedagogica que estaba haciendo el docente apoyandote en ESOS numeros reales.
-       -8. PROHIBICION DE TABLAS DE BLOQUES AL CIERRE: Es critico que al final NO introduzcas tablas de resumen po
-          -r bloque ni enumeraciones que no esten dictadas especificamente por las instrucciones formales.
-       -9. PARTICIPACION ESTUDIANTIL CON DATOS REALES: En "Analisis de la participacion estudiantil", DEBES extrae
-          -r y utilizar obligatoriamente los datos de las intervenciones (ej. "Number of distinct students", "Number
-          -of significant interventions", etc.) que se provean en el contexto de entrada. Asegurate de diagnosticar e
-          -n base a esos numeros si la participacion es concentrada (pocas voces) o distribuida.
-INSTRUCCIONES DE ESTRUCTURA:
-{instrucciones_estructura}
-"""
+    # 1. Cargar System Prompt desde archivo externo
+    prompt_path = Path(__file__).parent.parent.parent / "prompts" / "system_prompt.txt"
+    system_prompt_template = prompt_path.read_text(encoding="utf-8")
+    mensaje_sistema = system_prompt_template.format(instrucciones_estructura=instrucciones_estructura)
 
     # 2. Mensaje del Usuario (User Prompt)
     bloque_temporal_str = ""
@@ -242,7 +209,7 @@ INSTRUCCIONES DE ESTRUCTURA:
         except DataValidationError as e:
             logger.warning(f"Datos temporales invalidos: {e}. Usando formato JSON crudo.")
             bloque_temporal_str = f"\nDATOS TEMPORALES DEL DESARROLLO (JSON):\n\"\"\"\n{datos_temporales_json}\n\"\"\"\n"
-        except Exception as e:
+        except (ValueError, TypeError) as e:
             logger.warning(f"Error al procesar datos temporales: {e}. Usando formato JSON crudo.")
             bloque_temporal_str = f"\nDATOS TEMPORALES DEL DESARROLLO (JSON):\n\"\"\"\n{datos_temporales_json}\n\"\"\"\n"
 
@@ -270,7 +237,7 @@ TAREA A REALIZAR CON LA INFORMACION (PROMPT):
 
         return respuesta['message']['content']
 
-    except Exception as e:
+    except (KeyError, TypeError, ConnectionError) as e:
         error_msg = f"Error al generar texto con Ollama: {e}"
         logger.error(error_msg)
         raise OllamaGenerationError(f"{error_msg}\nVerifica que Ollama este abierto y tengas el modelo '{modelo}' instalado.")
@@ -334,15 +301,7 @@ def guardar_resultado_en_pdf(texto: str, nombre_archivo: str = "resultado_agente
         PDFGenerationError: Si ocurre un error al generar el PDF
     """
     # Intentar importar reportlab (mejor soporte Unicode)
-    reportlab = None
-    try:
-        from reportlab.lib.pagesizes import A4
-        from reportlab.lib.styles import getSampleStyleSheet
-        from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
-        from reportlab.lib.units import inch
-        reportlab = True
-    except ImportError:
-        pass
+    _has_reportlab = importlib.util.find_spec("reportlab") is not None
 
     # Intentar fpdf2 como alternativa (el paquete es fpdf2, pero el módulo se importa como fpdf)
     fpdf2_mod = None
@@ -369,7 +328,7 @@ def guardar_resultado_en_pdf(texto: str, nombre_archivo: str = "resultado_agente
         # Limpiar caracteres nulos del texto
         texto_limpio = texto.replace('\x00', '')
 
-        if reportlab:
+        if _has_reportlab:
             _generar_pdf_reportlab(texto_limpio, str(output_path), fuente_unicode)
 
         elif fpdf2_mod:
@@ -381,7 +340,7 @@ def guardar_resultado_en_pdf(texto: str, nombre_archivo: str = "resultado_agente
         logger.info(f"PDF generado exitosamente: {output_path.resolve()}")
         return True
 
-    except Exception as e:
+    except (IOError, OSError, RuntimeError) as e:
         error_msg = f"Error al generar el PDF {nombre_archivo}: {e}"
         logger.error(error_msg)
         raise PDFGenerationError(error_msg)
@@ -390,16 +349,13 @@ def guardar_resultado_en_pdf(texto: str, nombre_archivo: str = "resultado_agente
 def _generar_pdf_reportlab(texto: str, output_path: str, fuente_unicode: str) -> None:
     """Genera PDF usando reportlab con soporte Unicode."""
     from reportlab.lib.pagesizes import A4
-    from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
-    from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
-    from reportlab.lib.units import inch
+    from reportlab.lib.styles import ParagraphStyle
+    from reportlab.platypus import SimpleDocTemplate, Paragraph
     from reportlab.lib.enums import TA_LEFT
 
     doc = SimpleDocTemplate(str(output_path), pagesize=A4,
                             rightMargin=72, leftMargin=72,
                             topMargin=72, bottomMargin=18)
-
-    styles = getSampleStyleSheet()
 
     nombre_fuente = 'Helvetica'
     if fuente_unicode:
@@ -408,7 +364,7 @@ def _generar_pdf_reportlab(texto: str, output_path: str, fuente_unicode: str) ->
         try:
             pdfmetrics.registerFont(TTFont('FuenteUnicode', fuente_unicode))
             nombre_fuente = 'FuenteUnicode'
-        except Exception:
+        except (IOError, OSError):
             pass
 
     style = ParagraphStyle(
@@ -438,7 +394,7 @@ def _generar_pdf_fpdf2(texto: str, output_path: str, fuente_unicode: str, fpdf2_
         try:
             pdf.add_font('FuenteUnicode', '', fuente_unicode, uni=True)
             pdf.set_font('FuenteUnicode', size=11)
-        except Exception:
+        except (IOError, OSError, RuntimeError):
             pdf.set_font("Helvetica", size=11)
     else:
         pdf.set_font("Helvetica", size=11)
@@ -501,7 +457,7 @@ def generar_json_desde_informe(
 
         return respuesta_json['message']['content']
 
-    except Exception as e:
+    except (KeyError, TypeError, ConnectionError) as e:
         error_msg = f"Error al generar JSON: {e}"
         logger.error(error_msg)
         raise JSONGenerationError(error_msg)
@@ -529,12 +485,12 @@ def guardar_json(json_data: str, nombre_archivo: str) -> None:
 
         logger.info(f"JSON guardado exitosamente: {output_path.resolve()}")
 
-    except Exception as e:
+    except (IOError, OSError, json.JSONDecodeError) as e:
         error_msg = f"Error al guardar JSON {nombre_archivo}: {e}"
         logger.error(error_msg)
         raise JSONGenerationError(error_msg)
 
-def generar_informe_completo(config) -> None:
+def generar_informe_completo(config: object) -> None:
     """
     Genera un informe completo utilizando la configuracion proporcionada.
 
@@ -548,9 +504,6 @@ def generar_informe_completo(config) -> None:
         PDFGenerationError: Si ocurre un error al generar el PDF
         JSONGenerationError: Si ocurre un error al generar o guardar el JSON
     """
-    # Importar input_processor
-    from .input_processor import procesar_json_transcripcion
-
     try:
         # Validar configuracion
         validate_config(config.to_dict())
@@ -632,7 +585,7 @@ def generar_informe_completo(config) -> None:
                 texto_final = futuro_texto.result(timeout=300)
             except concurrent.futures.TimeoutError:
                 raise OllamaGenerationError("La generación de texto excedió el tiempo límite (5 min)")
-            except Exception as e:
+            except (OllamaGenerationError, TimeoutError) as e:
                 raise OllamaGenerationError(f"Error al generar texto: {e}")
 
             logger.info("=== RESULTADO GENERADO ===")
@@ -664,11 +617,11 @@ def generar_informe_completo(config) -> None:
                     
                 except concurrent.futures.TimeoutError:
                     logger.warning("La generación de JSON excedió el tiempo límite. Se omite JSON.")
-                except Exception as e:
+                except (JSONGenerationError, TimeoutError) as e:
                     logger.warning(f"Error al generar JSON: {e}. Se omite JSON.")
 
         logger.info("-- GENERACION FINALIZADA --")
 
-    except Exception as e:
+    except (DataValidationError, PDFExtractionError, OllamaGenerationError, PDFGenerationError, JSONGenerationError, FileNotFoundError) as e:
         logger.error(f"Error en la generacion del informe: {e}", exc_info=True)
         raise
